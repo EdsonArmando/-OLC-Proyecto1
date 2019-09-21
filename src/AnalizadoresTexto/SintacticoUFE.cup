@@ -1,0 +1,333 @@
+package Analizadores;
+
+import java.util.*; 
+import java_cup.runtime.Symbol;
+import Views.*;
+import Entorno.Simbolo.EnumTipoDato;
+import Entorno.Simbolo.TipoOperador;
+import Expresion.*;
+import Sentecia.*;
+import Entorno.Simbolo;
+import Datos.*;
+import IntruccionHTML.*;
+import Datos.Atributo.TIPOOPERACION;
+
+parser code
+{:  
+    /*public static LinkedList<AcepErr> TablaErr=new LinkedList<AcepErr>();*/
+
+    //public Panel resultado;
+    public LinkedList<Sentencia> resultado = new LinkedList<>();
+    
+
+    //Metodo al que se llama automaticamente ante algun error sintactico
+    public void syntax_error(Symbol s)
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico Recuperado !!!!!!!");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        //lista_errores.add(new ErrorT(lexema, fila, columna,"sintactico" ,"Simbolo no esperado"));
+        /*AcepErr datos =new AcepErr(lexema, "ERROR SINTACTICO" ,fila,columna,"Simbolo no esperado");
+            TablaErr.add(datos);
+            */
+    }
+
+    //Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico, Panic Mode !!!!!!! ");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+       /*AcepErr datos =new AcepErr(lexema, "ERROR SINTACTICO" ,fila,columna,"Simbolo no esperado Error Fatal");
+                   TablaErr.add(datos);
+                  */
+        //lista_errores.add(new ErrorT(lexema, fila, columna,"sintactico" ,"Simbolo no esperado, Panic Mode"));
+    }
+
+    public void semantic(Symbol cur_token, String n) 
+    {
+        System.out.println("error semantico ");
+    }
+
+    public void semantic(String msg, Object obj) {}
+
+:}
+
+action code
+{:
+
+:}  
+
+
+terminal String tCadena, tComponent, tReturn, tVar, tIgual, tPuntoComa, tLlaveC;
+terminal String tLlaveA,tCorcheA,tCorcheC, tParA, tParC, tTrue, tFalse, tId, tCaracter, tEntero, tClassname;
+terminal String tDoble,tOnClick,tMax,tMin,tComa, tSuma, tResta, tMult, tDiv, tPow, tMayorQ, tMenorQ, tText;
+terminal String tImport,tMenorDiv,tSrc,tImagen,tLlaveCX,tDobleIgual,tSi,tPanel,tList,tElement,tItem,tSpinner,tTextField,tBoton,tCadenas,tImprimir,tVal,tRender,tRender2,tX, tY, tHeight, tWidth, tColor, tBorder, tDiagonal, tIdEtq, tNumero;
+    
+non terminal SENTS;
+non terminal  ATRIB;
+non terminal LOPCIONRETURN, OPCIONRETURN, LISTACOMPN, COMPN, LISTACOMPNOVACIO;
+non terminal SNLINSTRUFEX;
+non terminal LISTAPANEL;
+
+non terminal LinkedList<Sentencia> INICIO, LISTASENTS,LSENTCOMPONENTE;
+non terminal Sentencia SI,IMPRIMIR,CSS,SENTCOMPONENTE,DECLARACION,SENTENCIAS, COMPONENTE,RENDER, RETURN;
+non terminal Expresion E,LISTA;
+non terminal LinkedList<Expresion> LISTAE,LISTELEMENT,LISTAITEM;
+non terminal LinkedList<Declaracion> LISTASIGNACION;
+non terminal Declaracion ASIGNACION; 
+non terminal Reasignacion REASIGNACION;
+non terminal  LinkedList<ComponenteJava>  LINSTRUFEX,SIONOLINSTRUFEX;
+non terminal Panel PANEL;
+non terminal Boton BOTON;
+non terminal Label LABEL;
+non terminal ListCombo JLIST;
+non terminal IdComponente IDCOMPO;
+non terminal TextField JTEXTFIELD;
+non terminal Spinner JSPINNER;
+non terminal Imagen IMAGEN;
+non terminal ComponenteJava INSTRUFEX ,RETCOMP;
+non terminal Atributo ATRIBUTO;
+
+non terminal LinkedList<Atributo> SNLISTAATRIBUTOS,LISTAATRIBUTOS;
+non terminal TipoOperador RELA;
+precedence left tSuma, tResta;
+precedence left tMult, tDiv;
+precedence left tPow;
+
+
+start with INICIO;
+
+INICIO ::= LISTASENTS:ls{:
+            parser.resultado=ls;
+        :};
+
+LISTASENTS ::= LISTASENTS:a SENTENCIAS:b {:
+                RESULT = a;
+                RESULT.add(b);
+            :}
+            | SENTENCIAS:b {:
+                RESULT = new LinkedList<>();
+                RESULT.add(b);
+            :}
+            | error tPuntoComa
+            ;
+
+SENTENCIAS ::= COMPONENTE:a {:RESULT = a;:}
+            | DECLARACION:a {:RESULT =a;:}
+            | REASIGNACION:a {:RESULT=a;:}
+            | IMPRIMIR:a {:RESULT = a;:}
+            | RENDER:a {:RESULT=a;:}
+            | RETURN:a {:RESULT=a;:}
+            | CSS:a {:RESULT=a;:}
+            ;
+CSS ::= E:a tPuntoComa {:RESULT=new CSS(a);:}
+    ;
+IMPRIMIR ::= tImprimir:a tParA LISTAE:b tParC tPuntoComa {: RESULT = new Imprimir(b, aright, aleft); :}
+          ;
+
+
+LISTAE ::= LISTAE:l tComa E:a{:
+            RESULT = l;
+            l.add(a);
+        :}
+        | E:a {:
+            RESULT = new LinkedList<>();
+            RESULT.add(a);
+        :}
+        ;
+
+DECLARACION ::= tVar LISTASIGNACION:a tPuntoComa {: RESULT= new Declaracion(a);:}
+            ;
+
+LISTASIGNACION ::= LISTASIGNACION:a tComa ASIGNACION:b {: 
+                    RESULT=a;
+                    RESULT.add(b);
+                :}
+                | ASIGNACION:b {: 
+                    RESULT = new LinkedList<>();
+                    RESULT.add(b);
+                :}
+                | error tPuntoComa
+                ;
+            
+ASIGNACION ::= tId:a tIgual E:asignacion {:RESULT = new Declaracion(a,asignacion);:}
+            | tId:nombre {:RESULT = new Declaracion(nombre,null);:}
+            ;
+
+RENDER ::= tRender tParA tMenorQ tDiv tId:nombre tMayorQ tComa tId:val tParC tPuntoComa {: RESULT = new Render(nombre,val); :}
+          |error 
+        ; 
+REASIGNACION ::= tId:nombre tIgual E:valor tPuntoComa {:RESULT=new Reasignacion(nombre,valor);:}
+              ;
+
+COMPONENTE ::= tComponent tId:id tParA tParC tLlaveA LSENTCOMPONENTE:lista tLlaveC {:RESULT=new Componente(lista,id);:}
+            ;
+
+LSENTCOMPONENTE ::= LSENTCOMPONENTE:a SENTCOMPONENTE:b {:
+                    RESULT = a;
+                    RESULT.add(b);
+                :}
+                | SENTCOMPONENTE:b {:
+                    RESULT = new LinkedList<>();
+                    RESULT.add(b);
+                :}
+                ;
+
+SENTCOMPONENTE ::= DECLARACION:a {:RESULT=a;:}
+                | REASIGNACION:a {:RESULT=a;:} 
+                | IMPRIMIR:a {:RESULT=a;:}
+                | RETURN:a {:RESULT=a;:}
+                | SI:a {:RESULT=a;:}
+                ;
+
+SI ::= tSi tParA E:a RELA:op E:b tParC tLlaveA  LISTASENTS:ls tLlaveC {:
+        RESULT=new Si(a,b,op,ls);
+    :}
+    ;
+RETURN ::= tReturn  LINSTRUFEX:lf tParC tPuntoComa {:RESULT=new Return(lf);:}
+         | tReturn  tMenorQ tDiagonal tId:id tMayorQ tParC tPuntoComa {:RESULT=new Return(id);:}
+        ;
+
+
+SIONOLINSTRUFEX ::= LINSTRUFEX:a tMenorQ {:RESULT=a;:}
+                | tMenorQ
+                ;
+
+LINSTRUFEX ::= LINSTRUFEX:a INSTRUFEX:b{:
+                RESULT = a;
+                RESULT.add(b);
+            :}
+            | INSTRUFEX:b{:
+                RESULT = new LinkedList<>();
+                RESULT.add(b);
+            :}
+            | error tMayorQ
+            ;
+
+INSTRUFEX ::= PANEL:a {:RESULT=a;:}
+              |BOTON:a {:RESULT=a;:}
+              |LABEL:a {:RESULT=a;:}
+              |JTEXTFIELD:a {:RESULT=a;:}
+              |JSPINNER:a {:RESULT=a;:}
+              |JLIST:a {:RESULT=a;:}
+              |IMAGEN:a {:RESULT=a;:}
+              |IDCOMPO:a {:RESULT=a;:}
+            ;
+IDCOMPO ::=  tDiagonal tId:a tMayorQ {:RESULT=new IdComponente(a);:}
+        ;
+IMAGEN ::= tMenorQ tImagen SNLISTAATRIBUTOS:ls tMayorQ {:
+            RESULT=new Imagen(ls);
+        :}
+
+        ;
+JLIST ::= tMenorQ tList SNLISTAATRIBUTOS:ls tMayorQ LISTELEMENT:le tDiagonal tList tMayorQ{:
+            RESULT = new ListCombo(ls, le);
+        :}
+        ;
+LISTELEMENT ::= tMenorQ tElement tMayorQ LISTAITEM:a tDiagonal tElement tMayorQ tMenorQ{:RESULT=a;:}
+                |tMenorQ
+        ;
+
+LISTAITEM ::= LISTAITEM:a LISTA:b  tDiagonal tItem tMayorQ tMenorQ{:
+                    RESULT=a;
+                    RESULT.add(b);
+                :}
+                | LISTA:b tDiagonal tItem tMayorQ{:
+                    RESULT = new LinkedList<>();
+                    RESULT.add(b);
+                :}
+                |tMenorQ
+                ;
+PANEL ::= tMenorQ tPanel SNLISTAATRIBUTOS:ls tMayorQ SIONOLINSTRUFEX:lsx tDiagonal tPanel tMayorQ{:
+            RESULT=new Panel(ls,lsx);
+        :}
+        ;
+JSPINNER ::= tMenorQ tSpinner SNLISTAATRIBUTOS:ls tMayorQ LISTA:lt tDiagonal tSpinner tMayorQ{:
+        RESULT= new Spinner(ls,lt);
+        :}
+        ;
+
+BOTON ::= tMenorQ tBoton SNLISTAATRIBUTOS:ls tMayorQ LISTA:lt tDiagonal tBoton tMayorQ{:
+        RESULT= new Boton(ls,lt);
+        :}
+        ;
+
+LISTA ::= tLlaveA tId:a tCorcheA tEntero:exp tCorcheC tLlaveC tMenorQ {:RESULT=new ArrayPosicion(a,exp,Simbolo.EnumTipoDato.ARRAY);:}
+         | tEntero:exp tMenorQ {:RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, exp);:}
+         | tMenorQ tItem tMayorQ LISTA:a{:RESULT=a;:}
+         | tCadena:a tMenorQ{:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
+            
+        ;
+LABEL ::= tMenorQ tText SNLISTAATRIBUTOS:ls tMayorQ LISTA:le   tDiagonal tText tMayorQ{:
+        RESULT= new Label(ls,le);
+        :}
+        ;
+JTEXTFIELD ::= tMenorQ tTextField SNLISTAATRIBUTOS:ls tMayorQ LISTAE:a tMenorQ  tDiagonal tTextField tMayorQ{:
+        RESULT= new TextField(ls,a);
+        :}
+        ;
+
+SNLISTAATRIBUTOS ::= LISTAATRIBUTOS:a {:RESULT=a;:}
+                |
+                ;
+
+LISTAATRIBUTOS ::= LISTAATRIBUTOS:a ATRIBUTO:b{:
+                    RESULT=a;
+                    RESULT.add(b);
+                :}
+                | ATRIBUTO:b{:
+                    RESULT = new LinkedList<>();
+                    RESULT.add(b);
+                :}
+                | error tMayorQ
+                ;
+
+ATRIBUTO ::= tIdEtq tIgual E:a {:RESULT = new Atributo("id",a);:}
+        | tX tIgual  E:a {:RESULT = new Atributo("x",a);:}         
+        | tY tIgual  E:a {:RESULT = new Atributo("y",a);:}
+        | tHeight tIgual  E:a {:RESULT = new Atributo("height",a);:}
+        | tWidth tIgual E:a {:RESULT = new Atributo("width",a);:}
+        | tColor tIgual E:a {:RESULT = new Atributo("color",a);:} 
+        | tBorder tIgual E:a {:RESULT = new Atributo("border",a);:}
+        | tMax tIgual E:a {:RESULT = new Atributo("max",a);:} 
+        | tMin tIgual E:a {:RESULT = new Atributo("min",a);:}
+        | tClassname tIgual E:a {:RESULT = new Atributo("classname",a);:} 
+        | tSrc tIgual E:a {:RESULT = new Atributo("src",a);:} 
+        | tOnClick tIgual tLlaveA E:a tLlaveC{:RESULT = new Atributo("onclick",a);:} 
+        ;
+RELA ::= tDobleIgual {: RESULT = TipoOperador.IGUAL; :}
+         | tMayorQ {: RESULT = TipoOperador.MAYOR; :}
+         | tMenorQ {: RESULT = TipoOperador.MENOR; :}
+       ;
+
+E   ::=  E tSuma E
+    | E tResta E
+    | E tMult E
+    | E tDiv E 
+    | E tPow E
+    | tImport tCadena:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
+    | tId:a tCorcheA E:exp tCorcheC {:RESULT=new ArrayPosicion(a,exp,Simbolo.EnumTipoDato.ARRAY);:}
+    | tId:a {:RESULT=new Id(a, aright, aleft);:}
+    | tCadena:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
+    | tCadenas:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
+    | tCaracter:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CARACTER, a);:}
+    | tEntero:a  {:RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, a);:}
+    | tDoble:a {:RESULT=new Literal(Simbolo.EnumTipoDato.DOBLE, a);:}
+    | tTrue:a {:RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, a);:}
+    | tFalse
+    | tParA E tParC
+    | tLlaveA LISTAE:ls tLlaveC  {:RESULT=new Array(Simbolo.EnumTipoDato.ARRAY, ls);:}
+    ;

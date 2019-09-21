@@ -1,0 +1,165 @@
+package Analizadores;
+import IntruccionHTML.*;
+import java.util.*; 
+import java_cup.runtime.Symbol;
+
+parser code
+{:  
+    /*public static LinkedList<AcepErr> TablaErr=new LinkedList<AcepErr>();*/
+    public String nuevo;
+    public LinkedList<InstruccionHtml> resultados = new LinkedList<>();
+    public String resultado = "";
+    //Metodo al que se llama automaticamente ante algun error sintactico
+    public void syntax_error(Symbol s)
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico Recuperado !!!!!!!");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        //lista_errores.add(new ErrorT(lexema, fila, columna,"sintactico" ,"Simbolo no esperado"));
+        /*AcepErr datos =new AcepErr(lexema, "ERROR SINTACTICO" ,fila,columna,"Simbolo no esperado");
+            TablaErr.add(datos);
+            */
+    }
+
+    //Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico, Panic Mode !!!!!!! ");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+       /*AcepErr datos =new AcepErr(lexema, "ERROR SINTACTICO" ,fila,columna,"Simbolo no esperado Error Fatal");
+                   TablaErr.add(datos);
+                  */
+        //lista_errores.add(new ErrorT(lexema, fila, columna,"sintactico" ,"Simbolo no esperado, Panic Mode"));
+    }
+
+    public void semantic(Symbol cur_token, String n) 
+    {
+        System.out.println("error semantico ");
+    }
+
+    public void semantic(String msg, Object obj) {}
+
+:}
+
+action code
+{:
+
+:}  
+
+
+terminal tHtml, tHead, tTitle, tNoufe, tDiv, tBody, tId, tIgual, tMenorQue, tMayorQue, tDiagonal;
+terminal String tCadena, tCadenaInterna;
+
+non terminal INICIO;
+non terminal LISTATRIB, ATRIB, LISTABODYEMPTY;
+non terminal Noufe NOUFE;
+
+non terminal LinkedList<InstruccionHtml> LISTAHTML;
+non terminal LinkedList<EtiquetaHtml> LISTAHEAD,LISTABODY;
+non terminal InstruccionHtml ITEMHTML;
+non terminal Head HEAD;
+non terminal Body BODY;
+non terminal Div DIV;
+non terminal EtiquetaHtml ITEMBODY;
+non terminal Title ITEMHEAD;
+start with INICIO;
+
+INICIO ::=  tMenorQue tHtml tMayorQue LISTAHTML:a tMenorQue tDiagonal tHtml tMayorQue {:
+            parser.resultados=a;
+         :}
+        ;
+
+LISTAHTML ::= LISTAHTML:a ITEMHTML:b {: 
+                RESULT = a;
+                RESULT.add(b);
+            :}
+           | ITEMHTML:b {: 
+                RESULT = new LinkedList<>();
+                RESULT.add(b);
+            :}
+           ;
+
+ITEMHTML ::= HEAD:a {: RESULT=a;:}
+        | BODY:a {: RESULT=a;:}
+        ;
+
+/**** HEAD ****/
+HEAD ::= tMenorQue tHead tMayorQue LISTAHEAD:a tMenorQue tDiagonal tHead tMayorQue {:
+            RESULT=new Head(a);
+         :}
+        ;
+
+LISTAHEAD ::= LISTAHEAD:a ITEMHEAD:b {: 
+                RESULT = a;
+                RESULT.add(b);
+            :}
+           | ITEMHEAD:b {:
+                RESULT = new LinkedList<>();
+                RESULT.add(b);
+             :}
+           | error tMayorQue {: :}
+           ;
+
+ITEMHEAD ::= tMenorQue tTitle tMayorQue tCadenaInterna:a tMenorQue tDiagonal tTitle tMayorQue {:
+            RESULT=new Title(a);
+            parser.nuevo = a;
+           :}
+          ;
+
+
+/**** BODY ****/
+BODY ::= tMenorQue tBody tMayorQue LISTABODY:a tMenorQue tDiagonal tBody tMayorQue {: 
+        RESULT=new Body(a);
+    :}
+     ;
+
+LISTABODY ::= LISTABODY:a ITEMBODY:b {: 
+             RESULT = a;
+             RESULT.add(b);
+            :}
+           | ITEMBODY:b{: 
+                RESULT = new LinkedList<>();
+                RESULT.add(b);
+            :}
+           | error tMayorQue {: 
+    
+            :}
+           ;
+
+ITEMBODY ::= NOUFE:a {: RESULT=a;:}
+          | DIV:a {: RESULT=a;:}
+          ;
+
+NOUFE ::= tMenorQue tNoufe tMayorQue tCadenaInterna:a tMenorQue tDiagonal tNoufe tMayorQue {:
+        RESULT=new Noufe(a);
+     :}
+       ;
+
+DIV ::= tMenorQue tDiv  tId tIgual tCadena:a tMayorQue  tMenorQue tDiagonal tDiv tMayorQue {:
+        RESULT=new Div(a);
+     :}
+    ;
+
+LISTABODYEMPTY ::= LISTABODY tMenorQue {: :}
+                | tMenorQue {: :}
+                ;
+
+LISTATRIB ::= LISTATRIB ATRIB {: :}
+           | ATRIB {: :}
+           ;
+
+ATRIB   ::= tId tIgual tCadena {: :}
+        ;

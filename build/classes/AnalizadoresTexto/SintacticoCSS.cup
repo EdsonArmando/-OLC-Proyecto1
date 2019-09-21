@@ -1,0 +1,119 @@
+package Analizadores;
+
+import java.util.*; 
+import java_cup.runtime.Symbol;
+import Views.*;
+import Entorno.Simbolo.EnumTipoDato;
+import Entorno.Simbolo.TipoOperador;
+import Expresion.*;
+import Sentecia.*;
+import Entorno.Simbolo;
+import Datos.*;
+import IntruccionHTML.*;
+import Datos.Atributo.TIPOOPERACION;
+
+parser code
+{:  
+    /*public static LinkedList<AcepErr> TablaErr=new LinkedList<AcepErr>();*/
+
+    //public Panel resultado;
+    public LinkedList<Atributo> resultado = new LinkedList<>();
+    
+
+    //Metodo al que se llama automaticamente ante algun error sintactico
+    public void syntax_error(Symbol s)
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico Recuperado !!!!!!!");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        //lista_errores.add(new ErrorT(lexema, fila, columna,"sintactico" ,"Simbolo no esperado"));
+        /*AcepErr datos =new AcepErr(lexema, "ERROR SINTACTICO" ,fila,columna,"Simbolo no esperado");
+            TablaErr.add(datos);
+            */
+    }
+
+    //Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico, Panic Mode !!!!!!! ");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+       /*AcepErr datos =new AcepErr(lexema, "ERROR SINTACTICO" ,fila,columna,"Simbolo no esperado Error Fatal");
+                   TablaErr.add(datos);
+                  */
+        //lista_errores.add(new ErrorT(lexema, fila, columna,"sintactico" ,"Simbolo no esperado, Panic Mode"));
+    }
+
+    public void semantic(Symbol cur_token, String n) 
+    {
+        System.out.println("error semantico ");
+    }
+
+    public void semantic(String msg, Object obj) {}
+
+:}
+
+action code
+{:
+
+:}  
+
+terminal String tGuion,tColor,tDosPuntos,tNumeral,tPuntoComa,tLlaveC,tRGB,tCadena, tCadenaInterna,tBorder;
+terminal String tId, tLeft,tEntero,tCaracter,tFont,tRight,tWidth,tHight,tLlaveA,tCenter,tBack;
+   
+non terminal DECLARACION, SENTS, ASIGNACION, REASIGNACION;
+non terminal LISTASIGNACION, COMPONENTE, SENTCOMPONENTE, LSENTCOMPONENTE, RETURN, ATRIB;
+non terminal LOPCIONRETURN, OPCIONRETURN, LISTACOMPN, COMPN, LISTACOMPNOVACIO;
+non terminal PANEL, SENTENCIAS, SNLINSTRUFEX, LINSTRUFEX, INSTRUFEX;
+non terminal  SIONOLINSTRUFEX;
+non terminal LISTAPANEL;
+non terminal Expresion E;
+non terminal  LinkedList<Atributo> LISTA,LISTASENTS,SNLISTAATRIBUTOS,LISTAATRIBUTOS;
+non terminal Atributo ATRIBUTO;
+
+
+start with LISTA;
+
+
+LISTA ::= SNLISTAATRIBUTOS:ls{:
+            parser.resultado=ls;
+        :}
+        ;
+SNLISTAATRIBUTOS ::= tId tLlaveA LISTAATRIBUTOS:a tLlaveC {:RESULT=a;:}
+                |
+                ;
+
+LISTAATRIBUTOS ::=  LISTAATRIBUTOS:a ATRIBUTO:b  {:
+                    RESULT=a;
+                    RESULT.add(b);
+                :}
+                | ATRIBUTO:b  {:
+                    RESULT = new LinkedList<>();
+                    RESULT.add(b);
+                :}
+                | tLlaveC
+                ;
+
+
+ATRIBUTO ::=tBorder tGuion  E:a tPuntoComa{:RESULT = new Atributo("border",a);:} 
+        | tHight tDosPuntos  E:a tPuntoComa{:RESULT = new Atributo("height",a);:}
+        | tWidth tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("width",a);:}
+        ;
+
+E ::=  tEntero:a  {:RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, a);:}
+    | tId:a {:RESULT=new Id(a, aright, aleft);:}
+    | tCadena:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
+    | tCaracter:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CARACTER, a);:}
+    ;
