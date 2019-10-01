@@ -7,6 +7,8 @@ package Datos;
 import Entorno.Entorno;
 import Entorno.Simbolo;
 import Expresion.Expresion;
+import Expresion.Id;
+import IntruccionHTML.CSS;
 import IntruccionHTML.LibreriaColor;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -16,17 +18,23 @@ import static Views.Inicio.jPanel1;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.PopupMenu;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 /**
  *
  * @author EG
  */
 public class Panel extends ComponenteJava{
+    
     LinkedList<ComponenteJava> listaComponentes;
     LinkedList<Atributo> listaAtributos;
     ComponenteJava java;
+    Border borderPanel;
+    String color="cyan";
     int height, width, x, y;
     Atributo atrib;
-    String color;
+    String colorBorder=null;
+    int borderWhit=0;
       public Panel(LinkedList<Atributo> listaAtributos, LinkedList<ComponenteJava> listaComponentes){
         this.listaAtributos = listaAtributos;
         this.listaComponentes = listaComponentes;
@@ -35,8 +43,10 @@ public class Panel extends ComponenteJava{
     }
      
     @Override
-    public void ejecutar(JPanel entorno) {
+    public void ejecutar(JPanel entorno,Entorno ent) {
         Expresion result;
+        Id id;
+        LibreriaColor l = new LibreriaColor();
          for(int i=0;i<this.listaAtributos.size();i++){
                 atrib=this.listaAtributos.get(i);
                 if(atrib.nombre.equals("width")){
@@ -54,24 +64,55 @@ public class Panel extends ComponenteJava{
                 }else if(atrib.nombre.equals("y")){
                     result = atrib.valor;
                     this.y = Integer.parseInt(result.valor.toString());
+                }else if(atrib.nombre.equals("classname")){
+                    result = atrib.valor;
+                    for(Atributo atrib:CSS.result){
+                         if(atrib.id.equals(result.valor.toString())){
+                             for(Atributo atr:atrib.lista){
+                                  result = atr.valor;
+                            if(atr.nombre.equals("width")){
+                               
+                                this.width=Integer.parseInt(result.valor.toString());
+                            }else if(atr.nombre.equals("height")){
+                               
+                                this.height = Integer.parseInt(result.valor.toString());
+                            }else if(atr.nombre.equals("BorderWidth")){
+                               
+                                this.borderWhit = Integer.parseInt(result.valor.toString());
+                            }else if(atr.nombre.equals("BorderColor")){
+                                id = (Id) atr.valor;
+                                this.colorBorder = id.getId();
+                            }
+                           }
+                         }
+                    
+                     }
+                  
+                    }
                 }
-        }
         /** Crear nuevo Panel***/
         JPanel nuevo = new JPanel();
+        if(colorBorder != null){
+            System.out.println("--------------");
+            System.out.println(this.colorBorder);
+            borderPanel = BorderFactory.createLineBorder(l.traducirColor(this.colorBorder),this.borderWhit);
+            nuevo.setBorder(borderPanel);
+        }
+       
         nuevo.setLayout(null);
         nuevo.setBounds(this.x, this.y, this.width, this.height);
-        LibreriaColor l = new LibreriaColor();
+        
         nuevo.setBackground(l.traducirColor(this.color));
         nuevo.repaint();
         /** Agregar al entorno Padre **/
         
         entorno.add(nuevo);        
-        entorno.repaint();
+        
         
          if(this.listaComponentes!=null){
          for(int i=0;i<this.listaComponentes.size();i++) {
             java = this.listaComponentes.get(i);
-            java.ejecutar(nuevo);
+            java.ejecutar(nuevo,ent);
         }
          }
          

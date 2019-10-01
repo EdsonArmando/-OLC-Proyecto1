@@ -5,6 +5,7 @@
  */
 package Datos;
 
+import Entorno.Entorno;
 import java.awt.Component;
 import javax.swing.JPanel;
 
@@ -13,5 +14,5 @@ import javax.swing.JPanel;
  * @author EG
  */
 public abstract class ComponenteJava {
-    public abstract void ejecutar(JPanel obj); 
+    public abstract void ejecutar(JPanel obj,Entorno ent); 
 }

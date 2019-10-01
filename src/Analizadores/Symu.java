@@ -8,67 +8,72 @@ package Analizadores;
 /** CUP generated class containing symbol constants. */
 public class Symu {
   /* terminals */
-  public static final int tBorder = 57;
-  public static final int tImprimir = 48;
-  public static final int tDobleIgual = 38;
-  public static final int tColor = 56;
-  public static final int tDoble = 20;
+  public static final int tXor = 24;
+  public static final int tBorder = 62;
+  public static final int tImprimir = 53;
+  public static final int tDobleIgual = 43;
+  public static final int tAnd = 23;
+  public static final int tColor = 61;
+  public static final int tDoble = 21;
   public static final int tPuntoComa = 7;
-  public static final int tSuma = 25;
-  public static final int tY = 53;
-  public static final int tNumero = 60;
-  public static final int tX = 52;
-  public static final int tDiv = 28;
-  public static final int tCaracter = 17;
-  public static final int tMayorQ = 30;
-  public static final int tCorcheC = 11;
-  public static final int tMin = 23;
-  public static final int tElement = 42;
-  public static final int tCorcheA = 10;
-  public static final int tTrue = 14;
-  public static final int tComa = 24;
-  public static final int tEntero = 18;
+  public static final int tSuma = 30;
+  public static final int tY = 58;
+  public static final int tNumero = 65;
+  public static final int tX = 57;
+  public static final int tDiv = 33;
+  public static final int tCaracter = 18;
+  public static final int tMayorQ = 35;
+  public static final int tCorcheC = 12;
+  public static final int tMin = 28;
+  public static final int tElement = 47;
+  public static final int tCorcheA = 11;
+  public static final int tTrue = 15;
+  public static final int tComa = 29;
+  public static final int tEntero = 19;
   public static final int tComponent = 3;
-  public static final int tSi = 39;
-  public static final int tRender = 50;
-  public static final int tLlaveCX = 37;
-  public static final int tFalse = 15;
+  public static final int tSi = 44;
+  public static final int tRender = 55;
+  public static final int tLlaveCX = 42;
+  public static final int tFalse = 16;
+  public static final int UMENOS = 38;
   public static final int tLlaveC = 8;
-  public static final int tOnClick = 21;
-  public static final int tLlaveA = 9;
+  public static final int tOnClick = 25;
+  public static final int tLlaveA = 10;
   public static final int EOF = 0;
-  public static final int tClassname = 19;
-  public static final int tMenorDiv = 34;
+  public static final int tClassname = 20;
   public static final int error = 1;
-  public static final int tList = 41;
-  public static final int tBoton = 46;
-  public static final int tSpinner = 44;
-  public static final int tWidth = 55;
-  public static final int tMenorQ = 31;
-  public static final int tText = 32;
-  public static final int tItem = 43;
-  public static final int tResta = 26;
-  public static final int tId = 16;
+  public static final int tList = 46;
+  public static final int tBoton = 51;
+  public static final int tOr = 22;
+  public static final int tSpinner = 49;
+  public static final int tWidth = 60;
+  public static final int tMenorQ = 36;
+  public static final int tText = 37;
+  public static final int tItem = 48;
+  public static final int tResta = 31;
+  public static final int tId = 17;
   public static final int tReturn = 4;
   public static final int tCadena = 2;
-  public static final int tSrc = 35;
-  public static final int tMax = 22;
-  public static final int tHeight = 54;
-  public static final int tCadenas = 47;
+  public static final int tSrc = 40;
+  public static final int tMax = 27;
+  public static final int tHeight = 59;
+  public static final int tCadenas = 52;
   public static final int tVar = 5;
-  public static final int tImport = 33;
+  public static final int tImport = 39;
   public static final int tIgual = 6;
-  public static final int tMult = 27;
-  public static final int tVal = 49;
-  public static final int tPow = 29;
-  public static final int tTextField = 45;
-  public static final int tImagen = 36;
-  public static final int tIdEtq = 59;
-  public static final int tDiagonal = 58;
-  public static final int tRender2 = 51;
-  public static final int tPanel = 40;
-  public static final int tParC = 13;
-  public static final int tParA = 12;
+  public static final int tMult = 32;
+  public static final int tVal = 54;
+  public static final int tDifQ = 26;
+  public static final int tPow = 34;
+  public static final int tTextField = 50;
+  public static final int tImagen = 41;
+  public static final int tClass = 9;
+  public static final int tIdEtq = 64;
+  public static final int tDiagonal = 63;
+  public static final int tRender2 = 56;
+  public static final int tPanel = 45;
+  public static final int tParC = 14;
+  public static final int tParA = 13;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -79,6 +84,7 @@ public class Symu {
   "tIgual",
   "tPuntoComa",
   "tLlaveC",
+  "tClass",
   "tLlaveA",
   "tCorcheA",
   "tCorcheC",
@@ -91,7 +97,11 @@ public class Symu {
   "tEntero",
   "tClassname",
   "tDoble",
+  "tOr",
+  "tAnd",
+  "tXor",
   "tOnClick",
+  "tDifQ",
   "tMax",
   "tMin",
   "tComa",
@@ -103,8 +113,8 @@ public class Symu {
   "tMayorQ",
   "tMenorQ",
   "tText",
+  "UMENOS",
   "tImport",
-  "tMenorDiv",
   "tSrc",
   "tImagen",
   "tLlaveCX",

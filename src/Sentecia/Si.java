@@ -8,6 +8,8 @@ package Sentecia;
 import Entorno.Entorno;
 import Entorno.Simbolo;
 import Expresion.Expresion;
+import Expresion.Literal;
+import Expresion.Operacion;
 import static Views.Inicio.salidaConsola;
 import java.util.LinkedList;
 
@@ -17,19 +19,27 @@ import java.util.LinkedList;
  */
 public class Si extends Sentencia{
     Expresion condicion1;
-    Expresion condicion2;
+    Operacion op;
+    Literal valor;
     LinkedList<Sentencia> lista;
-    Simbolo.TipoOperador tipoOperador;
-    public Si(Expresion condicion1,Expresion condicion2,Simbolo.TipoOperador operador, LinkedList<Sentencia> lista ){
+    Entorno entSi=new Entorno(null);
+    Operacion.Tipo_operacion tipoOperador;
+    public Si(Expresion condicion1,LinkedList<Sentencia> lista ){
         this.condicion1 = condicion1;
-        this.condicion2 = condicion2;
-        this.tipoOperador = operador;
         this.lista = lista;
     }
 
     @Override
     public void ejecutar(Entorno ent) {
-      salidaConsola.append("\nEjecutandoSentenciaSi"+this.tipoOperador.toString()+"\n");
+      entSi.tabla.putAll(ent.tabla);
+      op=(Operacion)this.condicion1;
+      valor = op.obtenerValor(ent);
+      
+      if((Boolean) valor.valor==true){
+          for(Sentencia sent: this.lista){
+              sent.ejecutar(entSi);
+          }
+      }
     }
 
     @Override

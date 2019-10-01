@@ -16,22 +16,30 @@ import IntruccionHTML.Noufe;
 import Sentecia.Declaracion;
 import Sentecia.Sentencia;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author EG
  */
 public class Inicio extends javax.swing.JFrame {
-
+    java.awt.TextArea tex1;
     /**
      * Creates new form Inicio
      */
@@ -48,12 +56,17 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        textArea1 = new java.awt.TextArea();
         salidaConsola = new java.awt.TextArea();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(0, 0, 800, 1010));
 
         jButton1.setText("Analizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -70,8 +83,29 @@ public class Inicio extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 301, Short.MAX_VALUE)
         );
+
+        jMenu5.setText("Abrir");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
+        jMenuBar2.add(jMenu5);
+
+        jMenu3.setText("Nuevo Proyecto");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("Editar Proyecto");
+        jMenuBar2.add(jMenu4);
+
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,15 +114,13 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(salidaConsola, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(salidaConsola, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(0, 142, Short.MAX_VALUE))
+                        .addGap(0, 45, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -96,25 +128,24 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(salidaConsola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salidaConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     static String nuevo;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        Component comp = jTabbedPane1.getComponentAt(jTabbedPane1.getSelectedIndex());
+        tex1=(java.awt.TextArea) comp;
+        String datos = tex1.getText();
         LinkedList<InstruccionHtml> resultados;
-        String datos = textArea1.getText();
         LexicoHTML lexico = new LexicoHTML(new BufferedReader(new StringReader(datos)));
         SintacticoHTML sintactico = new SintacticoHTML(lexico);
           try{
@@ -133,6 +164,79 @@ public class Inicio extends javax.swing.JFrame {
         AnalizarAppUfe();
         //analizarEntrada(datos);
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+    private int cont=0;
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+         String aux = "";
+				String texto = "";
+				JFileChooser chooser = new JFileChooser("CargaMasiva");
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(  "dat",
+						"SWAG");
+				chooser.setFileFilter(filter);
+				int returnVal = chooser.showOpenDialog(getContentPane());
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File abre=chooser.getSelectedFile();
+					FileReader archivos = null;
+					try {
+						archivos = new FileReader(abre);
+					} catch (FileNotFoundException e3) {
+						e3.printStackTrace();
+					}
+					BufferedReader lee=new BufferedReader(archivos);
+					 try {
+						while((aux=lee.readLine())!=null)
+						  {
+						     texto+= aux+ "\n";
+						  }
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}
+				         try {
+							lee.close();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+				     
+				}
+        
+        tex1 = new java.awt.TextArea();
+        tex1.setText(texto);
+        tex1.isEditable();
+        tex1.isEnabled();
+        jTabbedPane1.addTab("Archivo"+(cont+1), tex1);
+        cont++;
+    }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        String nombre = JOptionPane.showInputDialog("Ingrese nombre Proyecto");
+        File directorio=new File(nombre); 
+        directorio.mkdir();
+        File App=new File(nombre+"\\src"); 
+        App.mkdir();
+        File publics=new File(nombre+"\\Public"); 
+        publics.mkdir();
+        PrintWriter archivo;
+        try {
+            archivo = new PrintWriter(nombre+"\\Public\\prueba.html", "UTF-8");
+            archivo.println("<html><!--Primer archivo de calificación -->\n" +
+            "     <head>\n" +
+            "          <title>Prueba</title>\n" +
+            "     </head>\n" +
+            "     <body>\n" +
+            "          <noufe>Error, no se ha podido conectar con el servidor.</noufe>\n" +
+            "          <div id=\"todapagina\"></div>\n" +
+            "     </body>\n" +
+            "</html>");
+            archivo.close();
+            archivo = new PrintWriter(nombre+"\\src\\App.ufe", "UTF-8");
+            archivo.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenu3MouseClicked
     public void AnalizarAppUfe(){
         String aux="";
         String texto="";
@@ -172,10 +276,11 @@ public class Inicio extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-    public static Entorno ent = new Entorno(null);
+   
     public static LinkedList<Sentencia> listaInstrucciones=null;
      public void recorrerArbol(SintacticoUFE sintactico){
-         JFrame principal = new JFrame(nuevo);
+        Entorno ent = new Entorno(null);
+        JFrame principal = new JFrame(nuevo);
         principal.setSize(200, 150);
         jPanel1.removeAll();
         jPanel1.setLayout(null);
@@ -229,8 +334,12 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuBar jMenuBar2;
     public static javax.swing.JPanel jPanel1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     public static java.awt.TextArea salidaConsola;
-    private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,7 +13,6 @@ import Expresion.ArrayPosicion;
 import Expresion.Expresion;
 import Expresion.Id;
 import static Views.Inicio.salidaConsola;
-import static Views.Inicio.ent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -45,15 +44,15 @@ public class Imprimir extends Sentencia{
             if(resultado.getTipo()==EnumTipoDato.ARRAY){
                 arr = (ArrayPosicion) resultado;
                 sim = ent.obtener(arr.getId());
+                if(sim==null){
+                sim = ent.obtener(arr.getId());
+                }
                 arrayVE = (Array)sim.getValor();
-                salida+=(arrayVE.returnVal(Integer.parseInt(arr.getPosicion().valor.toString())));
+                salida+=(arrayVE.returnVal(Integer.parseInt(arr.getPosicion().valor.toString()),ent));
                 //listVal = arrayVE.getArray();
                 //salida+=listVal.get();
-                
             }else
-            if(resultado.getTipo() == Simbolo.EnumTipoDato.ERROR){
-               ejecutar(Views.Inicio.ent);
-            }else{
+            {
                 salida += resultado.valor.toString();
             }
         }

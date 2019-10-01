@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/Analizadores/LexicoCSS.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>747</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/EG/Documents/NetBeansProjects/Proyecto1/src/AnalizadoresTexto/LexicoHTML.jflex</file>
-            <file>file:/C:/Users/EG/Documents/NetBeansProjects/Proyecto1/src/Views/Inicio.java</file>
-            <file>file:/C:/Users/EG/Documents/NetBeansProjects/Proyecto1/src/Analizadores/SintacticoHTML.java</file>
-            <file>file:/C:/Users/EG/Documents/NetBeansProjects/Proyecto1/src/IntruccionHTML/Head.java</file>
-            <file>file:/C:/Users/EG/Documents/NetBeansProjects/Proyecto1/src/Analizadores/SintacticoUFE.java</file>
-            <file>file:/C:/Users/EG/Documents/NetBeansProjects/Proyecto1/src/IntruccionHTML/Title.java</file>
-            <file>file:/C:/Users/EG/Documents/NetBeansProjects/Proyecto1/src/Sentecia/IdComponente.java</file>
-            <file>file:/C:/Users/EG/Documents/NetBeansProjects/Proyecto1/src/AnalizadoresTexto/SintacticoHTML.cup</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

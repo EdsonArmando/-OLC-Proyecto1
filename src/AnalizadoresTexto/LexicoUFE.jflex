@@ -70,6 +70,7 @@ espacio = \t|\f|" "|\r|\n
     "imprimir"      {return addSymbol(new Symbol(Symu.tImprimir,yycolumn,yyline,yytext()));}
     "val"           {return addSymbol(new Symbol(Symu.tVal,yycolumn,yyline,yytext()));}
     "render2"       {return addSymbol(new Symbol(Symu.tRender2,yycolumn,yyline,yytext()));}
+    "classname"       {return addSymbol(new Symbol(Symu.tClass,yycolumn,yyline,yytext()));}
     "render"        {return addSymbol(new Symbol(Symu.tRender,yycolumn,yyline,yytext()));}
     "import"        {return addSymbol(new Symbol(Symu.tImport,yycolumn,yyline,yytext()));}
     "="             {return addSymbol(new Symbol(Symu.tIgual,yycolumn,yyline,yytext()));}
@@ -77,7 +78,10 @@ espacio = \t|\f|" "|\r|\n
     ";"             {return addSymbol(new Symbol(Symu.tPuntoComa,yycolumn,yyline,yytext()));}
     ">"             {return addSymbol(new Symbol(Symu.tMayorQ,yycolumn,yyline,yytext()));}
     "<"             {return addSymbol(new Symbol(Symu.tMenorQ,yycolumn,yyline,yytext()));}
-    "</"            {return addSymbol(new Symbol(Symu.tMenorDiv,yycolumn,yyline,yytext()));}
+    "!"             {return addSymbol(new Symbol(Symu.tDifQ,yycolumn,yyline,yytext()));}
+    "&"             {return addSymbol(new Symbol(Symu.tAnd,yycolumn,yyline,yytext()));}
+    "^"             {return addSymbol(new Symbol(Symu.tXor,yycolumn,yyline,yytext()));}
+    "|"             {return addSymbol(new Symbol(Symu.tOr,yycolumn,yyline,yytext()));}
     ","             {return addSymbol(new Symbol(Symu.tComa,yycolumn,yyline,yytext()));}
     "}"             {return addSymbol(new Symbol(Symu.tLlaveC,yycolumn,yyline,yytext()));}
     "{"             {return addSymbol(new Symbol(Symu.tLlaveA,yycolumn,yyline,yytext()));}

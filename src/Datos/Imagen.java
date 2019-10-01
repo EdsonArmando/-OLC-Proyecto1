@@ -5,12 +5,13 @@
  */
 package Datos;
 
+import Entorno.Entorno;
 import Entorno.Simbolo;
 import Expresion.Array;
 import Expresion.ArrayPosicion;
 import Expresion.Expresion;
 import Expresion.Id;
-import static Views.Inicio.ent;
+//import static Views.Inicio.ent;
 import static Views.Inicio.salidaConsola;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
@@ -36,7 +37,7 @@ public class Imagen extends ComponenteJava {
         this.y = 0;
     }
     @Override
-    public void ejecutar(JPanel obj) {
+    public void ejecutar(JPanel obj,Entorno ent) {
         Expresion result;
          for(int i=0;i<this.listaAtributos.size();i++){
                 atrib=this.listaAtributos.get(i);

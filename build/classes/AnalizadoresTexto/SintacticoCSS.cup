@@ -70,48 +70,75 @@ action code
 
 :}  
 
-terminal String tGuion,tColor,tDosPuntos,tNumeral,tPuntoComa,tLlaveC,tRGB,tCadena, tCadenaInterna,tBorder;
-terminal String tId, tLeft,tEntero,tCaracter,tFont,tRight,tWidth,tHight,tLlaveA,tCenter,tBack;
+terminal String tId,tGuion,tBackground,tAlign,tSize,tDosPuntos,tPunto,tLlaveA,tPuntoComa,tLlaveC,tCadena,tBorder;
+terminal String tEntero,tCaracter,tIgual,tWidth,tFont,tColor,tHight;
    
-non terminal DECLARACION, SENTS, ASIGNACION, REASIGNACION;
-non terminal LISTASIGNACION, COMPONENTE, SENTCOMPONENTE, LSENTCOMPONENTE, RETURN, ATRIB;
-non terminal LOPCIONRETURN, OPCIONRETURN, LISTACOMPN, COMPN, LISTACOMPNOVACIO;
-non terminal PANEL, SENTENCIAS, SNLINSTRUFEX, LINSTRUFEX, INSTRUFEX;
-non terminal  SIONOLINSTRUFEX;
-non terminal LISTAPANEL;
 non terminal Expresion E;
-non terminal  LinkedList<Atributo> LISTA,LISTASENTS,SNLISTAATRIBUTOS,LISTAATRIBUTOS;
-non terminal Atributo ATRIBUTO;
+non terminal String COLOR;
+non terminal  LinkedList<Atributo> SUBLISTAS,LISTA,LISTAAT,SNLISTAATRIBUTOS,LISTAATRIBUTOS;
+non terminal Atributo ATRIBUTO,ATRIB,LISTASUB;
 
 
 start with LISTA;
 
 
-LISTA ::= SNLISTAATRIBUTOS:ls{:
+LISTA ::= LISTAATRIBUTOS:ls{:
             parser.resultado=ls;
         :}
         ;
-SNLISTAATRIBUTOS ::= tId tLlaveA LISTAATRIBUTOS:a tLlaveC {:RESULT=a;:}
-                |
-                ;
 
-LISTAATRIBUTOS ::=  LISTAATRIBUTOS:a ATRIBUTO:b  {:
+LISTAATRIBUTOS ::=  LISTAATRIBUTOS:a ATRIB:b  {:
                     RESULT=a;
                     RESULT.add(b);
                 :}
-                | ATRIBUTO:b  {:
+                | ATRIB:b  {:
                     RESULT = new LinkedList<>();
                     RESULT.add(b);
                 :}
-                | tLlaveC
                 ;
+
+ATRIB ::= tId:id tLlaveA LISTAAT:a tLlaveC SUBLISTAS:b {:RESULT=new Atributo(id,a,b);:}
+        ;
+
+SUBLISTAS ::=  SUBLISTAS:a LISTASUB:b  {:
+            RESULT=a;
+            RESULT.add(b);
+        :}
+        | LISTASUB:b  {:
+            RESULT = new LinkedList<>();
+            RESULT.add(b);
+        :}
+        ;
+
+LISTASUB ::= tPunto tId:a tLlaveA LISTAAT:b tLlaveC{:
+            RESULT=new Atributo(a,b);
+        :}
+        ;
+LISTAAT ::=  LISTAAT:a ATRIBUTO:b  {:
+            RESULT=a;
+            RESULT.add(b);
+        :}
+        | ATRIBUTO:b  {:
+            RESULT = new LinkedList<>();
+            RESULT.add(b);
+        :}
+        |tLlaveC
+        ;
 
 
 ATRIBUTO ::=tBorder tGuion  E:a tPuntoComa{:RESULT = new Atributo("border",a);:} 
         | tHight tDosPuntos  E:a tPuntoComa{:RESULT = new Atributo("height",a);:}
         | tWidth tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("width",a);:}
+        | tBorder tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("BorderTrue",a);:}
+        | tBorder tGuion tColor tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("BorderColor",a);:}
+        | tBorder tGuion tWidth tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("BorderWidth",a);:}
+        | tBorder tGuion tHight tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("BorderHight",a);:}
+        | tBackground tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("Background",a);:}
+        | tFont tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("Font",a);:}
+        | tAlign tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("Align",a);:}
+        | tFont tGuion tColor tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("FontColor",a);:}
+        | tFont tGuion tSize tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("FontSize",a);:}
         ;
-
 E ::=  tEntero:a  {:RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, a);:}
     | tId:a {:RESULT=new Id(a, aright, aleft);:}
     | tCadena:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}

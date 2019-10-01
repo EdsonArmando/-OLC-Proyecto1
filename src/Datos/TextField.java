@@ -5,6 +5,7 @@
  */
 package Datos;
 
+import Entorno.Entorno;
 import Expresion.Expresion;
 import static Views.Inicio.salidaConsola;
 import java.util.LinkedList;
@@ -19,17 +20,17 @@ import javax.swing.JTextField;
 public class TextField extends ComponenteJava{
      LinkedList<Atributo> listaAtributos;
     int height, width, x, y;
-    LinkedList<Expresion> mensaje;
+    String mensaje;
     Atributo atrib;
     String palabras="";
-     public TextField(LinkedList<Atributo> listaAtributos,LinkedList<Expresion> mensaje ){
+     public TextField(LinkedList<Atributo> listaAtributos,String mensaje){
         this.listaAtributos = listaAtributos;
         this.mensaje = mensaje;
         this.x = 0;
         this.y = 0;
     }
     @Override
-    public void ejecutar(JPanel obj) {
+    public void ejecutar(JPanel obj,Entorno ent) {
           Expresion result;
          for(int i=0;i<this.listaAtributos.size();i++){
                 atrib=this.listaAtributos.get(i);
@@ -53,12 +54,8 @@ public class TextField extends ComponenteJava{
         nuevo.setLayout(null);
         nuevo.setBounds(this.x, this.y, this.width, this.height);
 
-       if(this.mensaje!=null){
-           for(Expresion exp:this.mensaje){
-               palabras+=exp.valor.toString();
-           }    
-        }
-        
+      
+        palabras+=this.mensaje;
         nuevo.setText(palabras);
         nuevo.repaint();
         /** Agregar al entorno Padre **/

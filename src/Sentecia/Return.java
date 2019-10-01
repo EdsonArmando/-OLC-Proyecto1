@@ -8,7 +8,6 @@ package Sentecia;
 import Datos.ComponenteJava;
 import Entorno.Entorno;
 import static Views.Inicio.salidaConsola;
-import static Views.Inicio.jPanel1;
 import java.util.LinkedList;
 import javax.swing.JPanel;
 
@@ -30,19 +29,18 @@ public class Return extends Sentencia{
         salidaConsola.append("Ejecutando la instruccion 1");
         if(this.listaComponentes !=null){
             for(int i=0;i<this.listaComponentes.size();i++){
-            
-            this.listaComponentes.get(i).ejecutar(jPanel1);
-        }
+            this.listaComponentes.get(i).ejecutar(Views.Inicio.jPanel1,ent);
+            }
         }else{
         salidaConsola.append(id);
      }   
     }
-      public void ejecutar(Entorno ent,JPanel padre) {
+    public void ejecutar(Entorno ent,JPanel padre) {
         
         salidaConsola.append("Ejecutando la instruccion 2");
         if(this.listaComponentes !=null){
              for(int i=0;i<this.listaComponentes.size();i++){
-            this.listaComponentes.get(i).ejecutar(padre);
+            this.listaComponentes.get(i).ejecutar(padre,ent);
         }
         }else{
         salidaConsola.append(id);

@@ -1,1 +1,83 @@
-panel{hight:100}
+panel
+{
+     width: 380;
+     hight: 500;
+     border: true;
+     border-color: green;
+     border-width: 5;
+}
+.Notas 
+{
+     border-width: 1;
+     width: 500;
+     hight: 380;     
+}
+.Descripcion
+{
+     border-width: 1;
+     width: 500;
+     hight: 380;     
+}
+titulo 
+{
+     font: "Times New Romans";
+     align: left;
+     font-size:13;   
+     width: 1300;
+     hight: 70;  
+     border: true;
+     border-color: red;
+     border-width: 5;
+}
+.subtitulo 
+{
+     font: "Times New Romans";
+     align: center;
+     font-size:30;          
+}
+.texto
+{
+     font: "Comics Sans MS";
+     align: left;
+     font-size:18;          
+}
+titulo2 
+{
+     font: "Times New Romans";
+     width: 1300;
+     hight: 70;  
+     border-color: orange;
+     border-width: 5;
+
+}
+.subtitulo2 
+{
+     font: "Times New Romans";
+     align: center;
+     font-size:30; 
+     font-color: gray;
+
+}
+.texto2
+{
+     font: "Comics Sans MS";
+     align: left;
+     font-size:18;          
+}
+curso
+{
+     font: "Consolas";
+     align: left;     
+     font-size: 12;       
+}
+.aprobado
+{
+     font-color: black; 
+     font-size: 10;   
+}
+.boton
+{
+    font-color: red; 
+     font-size: 10; 
+     align: right;
+}

@@ -29,11 +29,11 @@ public class Componente extends Sentencia{
     @Override
     public void ejecutar(Entorno ent) {   
         if(ejecutado!=true){
+             nuevo.tabla.putAll(ent.tabla);
              ent.insertar(this.id, new Simbolo(EnumTipoDato.COMPONENTE, this.listaAentenciaComponent));
-         
         for(int cont =0;cont<this.listaAentenciaComponent.size(); cont++){
             listaAentenciaComponent.get(cont).ejecutar(this.nuevo);
-        }
+            }
         }
        
          // Guardo la variable 
@@ -41,18 +41,18 @@ public class Componente extends Sentencia{
  public void ejecutar(Entorno ent,JPanel ento) {
         this.ejecutado=true;
         System.out.println("HolaIDCOMO");
-             ent.insertar(this.id, new Simbolo(EnumTipoDato.COMPONENTE, this.listaAentenciaComponent));
+        nuevo.tabla.putAll(ent.tabla);
+        ent.insertar(this.id, new Simbolo(EnumTipoDato.COMPONENTE, this.listaAentenciaComponent));
          
         for(int cont =0;cont<this.listaAentenciaComponent.size(); cont++){
             
             if(listaAentenciaComponent.get(cont) instanceof Return){
                 Return ret = (Return) listaAentenciaComponent.get(cont);
-                ret.ejecutar(ent, ento);
+                ret.ejecutar(nuevo, ento);
             }else{
                 listaAentenciaComponent.get(cont).ejecutar(nuevo);
             }
         }
-         // Guardo la variable 
     }
     @Override
     public EnumTipoSentencia getTipo() {

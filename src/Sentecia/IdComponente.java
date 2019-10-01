@@ -9,7 +9,7 @@ import Datos.ComponenteJava;
 import Entorno.Entorno;
 import Expresion.Expresion;
 import Sentecia.Sentencia.EnumTipoSentencia;
-import static Views.Inicio.ent;
+//import static Views.Inicio.ent;
 import static Views.Inicio.listaInstrucciones;
 import static Views.Inicio.salidaConsola;
 import static Views.Inicio.salidaConsola;
@@ -29,7 +29,7 @@ public class IdComponente extends ComponenteJava {
     }
     
     @Override
-    public void ejecutar(JPanel ent) {
+    public void ejecutar(JPanel ent,Entorno ento) {
            System.out.println("HolaIDCOMONENTE");
             EnumTipoSentencia tipo;
             Componente component;
@@ -38,7 +38,7 @@ public class IdComponente extends ComponenteJava {
              if(i instanceof Componente){
                  component = (Componente)i;
                  if(component.id.equals(id)){
-                 component.ejecutar(Views.Inicio.ent,ent);
+                  component.ejecutar(ento,ent);
                  ejecutado=true;
                 System.out.print(component.id);
             }

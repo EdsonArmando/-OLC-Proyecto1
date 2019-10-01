@@ -10,6 +10,7 @@ import Entorno.Simbolo;
 import Entorno.Simbolo.EnumTipoDato;
 import Expresion.Array;
 import Expresion.Expresion;
+import Expresion.Operacion;
 import static Views.Inicio.salidaConsola;
 import java.util.LinkedList;
 
@@ -39,9 +40,18 @@ public class Declaracion extends Sentencia {
         for(int i=0;i<this.declaracion.size();i++){
             declaracio = declaracion.get(i);
             resultado =  declaracio.expresion;
-            tipoVa=resultado.getTipo();
+          
+                 try{
+                tipoVa=resultado.getTipo();
+            }catch(Exception e){
+            
+                }
+            
         if(tipoVa == EnumTipoDato.ARRAY){
             ent.insertar(declaracio.nombreVariable, new Simbolo(tipoVa, resultado));
+        }else if(resultado instanceof Operacion){
+            resultado = declaracio.expresion.obtenerValor(ent);
+            ent.insertar(declaracio.nombreVariable, new Simbolo(tipoVa, resultado.valor)); // Guardo la variable 
         }else if(resultado!=null){
         ent.insertar(declaracio.nombreVariable, new Simbolo(tipoVa, resultado.valor)); // Guardo la variable       
         }else{

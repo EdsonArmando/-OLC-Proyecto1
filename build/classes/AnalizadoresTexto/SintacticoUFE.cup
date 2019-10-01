@@ -10,6 +10,7 @@ import Sentecia.*;
 import Entorno.Simbolo;
 import Datos.*;
 import IntruccionHTML.*;
+import Expresion.Operacion.Tipo_operacion;
 import Datos.Atributo.TIPOOPERACION;
 
 parser code
@@ -71,11 +72,11 @@ action code
 :}  
 
 
-terminal String tCadena, tComponent, tReturn, tVar, tIgual, tPuntoComa, tLlaveC;
+terminal String tCadena, tComponent, tReturn, tVar, tIgual, tPuntoComa, tLlaveC,tClass;
 terminal String tLlaveA,tCorcheA,tCorcheC, tParA, tParC, tTrue, tFalse, tId, tCaracter, tEntero, tClassname;
-terminal String tDoble,tOnClick,tMax,tMin,tComa, tSuma, tResta, tMult, tDiv, tPow, tMayorQ, tMenorQ, tText;
-terminal String tImport,tMenorDiv,tSrc,tImagen,tLlaveCX,tDobleIgual,tSi,tPanel,tList,tElement,tItem,tSpinner,tTextField,tBoton,tCadenas,tImprimir,tVal,tRender,tRender2,tX, tY, tHeight, tWidth, tColor, tBorder, tDiagonal, tIdEtq, tNumero;
-    
+terminal String tDoble,tOr,tAnd,tXor,tOnClick,tDifQ,tMax,tMin,tComa, tSuma, tResta, tMult, tDiv, tPow, tMayorQ, tMenorQ, tText;
+terminal String UMENOS,tImport,tSrc,tImagen,tLlaveCX,tDobleIgual,tSi,tPanel,tList,tElement,tItem,tSpinner,tTextField,tBoton,tCadenas,tImprimir,tVal,tRender,tRender2,tX, tY, tHeight, tWidth, tColor, tBorder, tDiagonal, tIdEtq, tNumero;
+
 non terminal SENTS;
 non terminal  ATRIB;
 non terminal LOPCIONRETURN, OPCIONRETURN, LISTACOMPN, COMPN, LISTACOMPNOVACIO;
@@ -102,10 +103,11 @@ non terminal ComponenteJava INSTRUFEX ,RETCOMP;
 non terminal Atributo ATRIBUTO;
 
 non terminal LinkedList<Atributo> SNLISTAATRIBUTOS,LISTAATRIBUTOS;
-non terminal TipoOperador RELA;
-precedence left tSuma, tResta;
+non terminal Tipo_operacion RELA;
+precedence left tSuma, tResta,UMENOS;
 precedence left tMult, tDiv;
-precedence left tPow;
+precedence left tPow, tMayorQ,tMenorQ,tIgual,tDifQ,tDiagonal;
+precedence left tAnd, tOr,tXor;
 
 
 start with INICIO;
@@ -131,7 +133,7 @@ SENTENCIAS ::= COMPONENTE:a {:RESULT = a;:}
             | IMPRIMIR:a {:RESULT = a;:}
             | RENDER:a {:RESULT=a;:}
             | RETURN:a {:RESULT=a;:}
-            | CSS:a {:RESULT=a;:}
+            | CSS:a {:RESULT=a;:}  
             ;
 CSS ::= E:a tPuntoComa {:RESULT=new CSS(a);:}
     ;
@@ -193,8 +195,8 @@ SENTCOMPONENTE ::= DECLARACION:a {:RESULT=a;:}
                 | SI:a {:RESULT=a;:}
                 ;
 
-SI ::= tSi tParA E:a RELA:op E:b tParC tLlaveA  LISTASENTS:ls tLlaveC {:
-        RESULT=new Si(a,b,op,ls);
+SI ::= tSi tParA E:a tParC tLlaveA  LISTASENTS:ls tLlaveC {:
+        RESULT=new Si(a,ls);
     :}
     ;
 RETURN ::= tReturn  LINSTRUFEX:lf tParC tPuntoComa {:RESULT=new Return(lf);:}
@@ -220,7 +222,7 @@ LINSTRUFEX ::= LINSTRUFEX:a INSTRUFEX:b{:
 INSTRUFEX ::= PANEL:a {:RESULT=a;:}
               |BOTON:a {:RESULT=a;:}
               |LABEL:a {:RESULT=a;:}
-              |JTEXTFIELD:a {:RESULT=a;:}
+              |JTEXTFIELD:a tMenorQ tDiagonal tTextField tMayorQ{:RESULT=a;:}
               |JSPINNER:a {:RESULT=a;:}
               |JLIST:a {:RESULT=a;:}
               |IMAGEN:a {:RESULT=a;:}
@@ -275,7 +277,7 @@ LABEL ::= tMenorQ tText SNLISTAATRIBUTOS:ls tMayorQ LISTA:le   tDiagonal tText t
         RESULT= new Label(ls,le);
         :}
         ;
-JTEXTFIELD ::= tMenorQ tTextField SNLISTAATRIBUTOS:ls tMayorQ LISTAE:a tMenorQ  tDiagonal tTextField tMayorQ{:
+JTEXTFIELD ::= tMenorQ tTextField SNLISTAATRIBUTOS:ls tMayorQ tCadena:a {:
         RESULT= new TextField(ls,a);
         :}
         ;
@@ -304,30 +306,39 @@ ATRIBUTO ::= tIdEtq tIgual E:a {:RESULT = new Atributo("id",a);:}
         | tBorder tIgual E:a {:RESULT = new Atributo("border",a);:}
         | tMax tIgual E:a {:RESULT = new Atributo("max",a);:} 
         | tMin tIgual E:a {:RESULT = new Atributo("min",a);:}
+        | tClass tIgual E:a {:RESULT = new Atributo("className",a);:}
         | tClassname tIgual E:a {:RESULT = new Atributo("classname",a);:} 
         | tSrc tIgual E:a {:RESULT = new Atributo("src",a);:} 
         | tOnClick tIgual tLlaveA E:a tLlaveC{:RESULT = new Atributo("onclick",a);:} 
         ;
-RELA ::= tDobleIgual {: RESULT = TipoOperador.IGUAL; :}
-         | tMayorQ {: RESULT = TipoOperador.MAYOR; :}
-         | tMenorQ {: RESULT = TipoOperador.MENOR; :}
-       ;
 
-E   ::=  E tSuma E
-    | E tResta E
-    | E tMult E
-    | E tDiv E 
-    | E tPow E
-    | tImport tCadena:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
+E   ::=  tResta E:a{:RESULT=new Operacion(a,Operacion.Tipo_operacion.NEGATIVO);:}%prec UMENOS 
+    | E:a tSuma E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.SUMA);:}     
+    | E:a tResta E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.RESTA);:}
+    | E:a tMult E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.MULTIPLICACION);:}
+    | E:a tDiv E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.DIVISION);:}
+    | E:a tPow E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.POTENCIA);:}
+    | E:a tIgual tIgual E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.IGUAL_QUE);:}
+    | E:a tMenorQ E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.MENOR_QUE);:}
+    | E:a tMayorQ E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.MAYOR_QUE);:}
+    | E:a tMayorQ tIgual E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.MAYOR_IGUAL_QUE);:}
+    | E:a tMenorQ tIgual E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.MENOR_IGUAL_QUE);:}
+    | E:a tDifQ tIgual E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.DIFERENTE_QUE);:}
+    | E:a tAnd tAnd E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.AND);:}
+    | E:a tOr tOr E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.OR);:}
+    | E:a tDifQ E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.NOT);:}
+    | E:a tXor E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.XOR);:}
+    |tImport tCadena:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
     | tId:a tCorcheA E:exp tCorcheC {:RESULT=new ArrayPosicion(a,exp,Simbolo.EnumTipoDato.ARRAY);:}
-    | tId:a {:RESULT=new Id(a, aright, aleft);:}
+    | tId:a {:RESULT=new Operacion(a,Tipo_operacion.IDENTIFICADOR);:}
+    | tParA E:a tParC {:RESULT=a;:}
     | tCadena:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
     | tCadenas:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
     | tCaracter:a {:RESULT=new Literal(Simbolo.EnumTipoDato.CARACTER, a);:}
     | tEntero:a  {:RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, a);:}
     | tDoble:a {:RESULT=new Literal(Simbolo.EnumTipoDato.DOBLE, a);:}
-    | tTrue:a {:RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, a);:}
-    | tFalse
-    | tParA E tParC
+    | tTrue:a {:RESULT=new Literal(Simbolo.EnumTipoDato.BOOLEANO, "true");:}
+    | tFalse:a {:RESULT=new Literal(Simbolo.EnumTipoDato.BOOLEANO, "false");:}
     | tLlaveA LISTAE:ls tLlaveC  {:RESULT=new Array(Simbolo.EnumTipoDato.ARRAY, ls);:}
     ;
+    

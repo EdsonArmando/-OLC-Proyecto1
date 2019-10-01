@@ -8,6 +8,7 @@ package Expresion;
 import Entorno.Entorno;
 import Entorno.Simbolo;
 import Entorno.Simbolo.EnumTipoDato;
+//import static Views.Inicio.ent;
 import java.util.LinkedList;
 
 /**
@@ -29,8 +30,15 @@ public class Array extends Expresion{
     public Simbolo.EnumTipoDato getTipo() {
        return this.tipo;
     }
-    public String returnVal(int pos){
+    public String returnVal(int pos,Entorno ent){
+        Operacion op=null;
+        if(datos.get(pos) instanceof Operacion){
+            op=(Operacion)datos.get(pos);
+            Literal lit=op.obtenerValor(ent);
+            return lit.valor.toString();
+        }
         return this.datos.get(pos).valor.toString();
+        
     }
     public LinkedList<Expresion> getArray(){
         return this.datos;

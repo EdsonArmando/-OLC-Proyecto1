@@ -7,13 +7,14 @@ package Entorno;
 
 import java.util.HashMap;
 import static Views.Inicio.salidaConsola;
+import java.util.LinkedList;
 
 /**
  *
  * @author EG
  */
 public class Entorno {
-     Entorno anterior;
+    Entorno anterior;
     public HashMap<String, Simbolo> tabla; //Tabla donde voy a almacenar mis variables
     
      /**
@@ -24,7 +25,6 @@ public class Entorno {
         this.tabla = new HashMap<>(); 
         this.anterior = anterior;
     }
-    
     /**
      * Método que agrega una variable al entorno actual.
      * @param nombre El nombre de la nueva variable.

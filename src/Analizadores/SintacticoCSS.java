@@ -41,11 +41,15 @@ public class SintacticoCSS extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\016\000\002\002\004\000\002\031\003\000\002\033" +
-    "\006\000\002\033\002\000\002\034\004\000\002\034\003" +
-    "\000\002\034\003\000\002\035\006\000\002\035\006\000" +
-    "\002\035\006\000\002\030\003\000\002\030\003\000\002" +
-    "\030\003\000\002\030\003" });
+    "\000\033\000\002\002\004\000\002\005\003\000\002\010" +
+    "\004\000\002\010\003\000\002\012\007\000\002\004\004" +
+    "\000\002\004\003\000\002\013\007\000\002\006\004\000" +
+    "\002\006\003\000\002\006\003\000\002\011\006\000\002" +
+    "\011\006\000\002\011\006\000\002\011\006\000\002\011" +
+    "\010\000\002\011\010\000\002\011\010\000\002\011\006" +
+    "\000\002\011\006\000\002\011\006\000\002\011\010\000" +
+    "\002\011\010\000\002\002\003\000\002\002\003\000\002" +
+    "\002\003\000\002\002\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -53,24 +57,66 @@ public class SintacticoCSS extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\033\000\006\002\ufffe\016\006\001\002\000\004\002" +
-    "\035\001\002\000\004\002\000\001\002\000\004\026\007" +
-    "\001\002\000\012\011\013\015\014\024\012\025\010\001" +
-    "\002\000\004\006\032\001\002\000\012\011\030\015\014" +
-    "\024\012\025\010\001\002\000\004\006\025\001\002\000" +
-    "\012\011\ufffb\015\ufffb\024\ufffb\025\ufffb\001\002\000\004" +
-    "\004\016\001\002\000\012\011\ufffc\015\ufffc\024\ufffc\025" +
-    "\ufffc\001\002\000\012\013\020\016\022\020\021\021\023" +
-    "\001\002\000\004\010\024\001\002\000\004\010\ufff5\001" +
-    "\002\000\004\010\ufff7\001\002\000\004\010\ufff6\001\002" +
-    "\000\004\010\ufff4\001\002\000\012\011\ufffa\015\ufffa\024" +
-    "\ufffa\025\ufffa\001\002\000\012\013\020\016\022\020\021" +
-    "\021\023\001\002\000\004\010\027\001\002\000\012\011" +
-    "\ufff8\015\ufff8\024\ufff8\025\ufff8\001\002\000\004\002\uffff" +
-    "\001\002\000\012\011\ufffd\015\ufffd\024\ufffd\025\ufffd\001" +
-    "\002\000\012\013\020\016\022\020\021\021\023\001\002" +
-    "\000\004\010\034\001\002\000\012\011\ufff9\015\ufff9\024" +
-    "\ufff9\025\ufff9\001\002\000\004\002\001\001\002" });
+    "\000\111\000\004\004\007\001\002\000\006\002\000\004" +
+    "\007\001\002\000\004\002\112\001\002\000\006\002\ufffe" +
+    "\004\ufffe\001\002\000\004\013\010\001\002\000\020\006" +
+    "\020\007\021\015\013\017\014\023\016\024\017\026\011" +
+    "\001\002\000\004\011\107\001\002\000\020\006\ufff8\007" +
+    "\ufff8\015\ufff8\017\ufff8\023\ufff8\024\ufff8\026\ufff8\001\002" +
+    "\000\020\006\ufff7\007\ufff7\015\ufff7\017\ufff7\023\ufff7\024" +
+    "\ufff7\026\ufff7\001\002\000\006\005\066\011\065\001\002" +
+    "\000\020\006\020\007\021\015\053\017\014\023\016\024" +
+    "\017\026\011\001\002\000\004\011\050\001\002\000\006" +
+    "\005\035\011\034\001\002\000\004\011\031\001\002\000" +
+    "\004\011\022\001\002\000\012\004\027\016\024\020\025" +
+    "\021\026\001\002\000\004\014\030\001\002\000\004\014" +
+    "\uffe8\001\002\000\004\014\uffea\001\002\000\004\014\uffe7" +
+    "\001\002\000\004\014\uffe9\001\002\000\020\006\uffed\007" +
+    "\uffed\015\uffed\017\uffed\023\uffed\024\uffed\026\uffed\001\002" +
+    "\000\012\004\027\016\024\020\025\021\026\001\002\000" +
+    "\004\014\033\001\002\000\020\006\uffef\007\uffef\015\uffef" +
+    "\017\uffef\023\uffef\024\uffef\026\uffef\001\002\000\012\004" +
+    "\027\016\024\020\025\021\026\001\002\000\006\010\036" +
+    "\025\037\001\002\000\004\011\043\001\002\000\004\011" +
+    "\040\001\002\000\012\004\027\016\024\020\025\021\026" +
+    "\001\002\000\004\014\042\001\002\000\020\006\uffec\007" +
+    "\uffec\015\uffec\017\uffec\023\uffec\024\uffec\026\uffec\001\002" +
+    "\000\012\004\027\016\024\020\025\021\026\001\002\000" +
+    "\004\014\045\001\002\000\020\006\uffeb\007\uffeb\015\uffeb" +
+    "\017\uffeb\023\uffeb\024\uffeb\026\uffeb\001\002\000\004\014" +
+    "\047\001\002\000\020\006\uffee\007\uffee\015\uffee\017\uffee" +
+    "\023\uffee\024\uffee\026\uffee\001\002\000\012\004\027\016" +
+    "\024\020\025\021\026\001\002\000\004\014\052\001\002" +
+    "\000\020\006\ufff4\007\ufff4\015\ufff4\017\ufff4\023\ufff4\024" +
+    "\ufff4\026\ufff4\001\002\000\004\012\055\001\002\000\020" +
+    "\006\ufff9\007\ufff9\015\ufff9\017\ufff9\023\ufff9\024\ufff9\026" +
+    "\ufff9\001\002\000\004\004\061\001\002\000\010\002\ufffb" +
+    "\004\ufffb\012\ufffb\001\002\000\010\002\ufffd\004\ufffd\012" +
+    "\055\001\002\000\010\002\ufffc\004\ufffc\012\ufffc\001\002" +
+    "\000\004\013\062\001\002\000\020\006\020\007\021\015" +
+    "\013\017\014\023\016\024\017\026\011\001\002\000\020" +
+    "\006\020\007\021\015\064\017\014\023\016\024\017\026" +
+    "\011\001\002\000\010\002\ufffa\004\ufffa\012\ufffa\001\002" +
+    "\000\012\004\027\016\024\020\025\021\026\001\002\000" +
+    "\020\004\027\016\024\020\025\021\026\023\071\025\070" +
+    "\026\067\001\002\000\004\011\102\001\002\000\004\011" +
+    "\077\001\002\000\004\011\074\001\002\000\004\014\073" +
+    "\001\002\000\020\006\ufff6\007\ufff6\015\ufff6\017\ufff6\023" +
+    "\ufff6\024\ufff6\026\ufff6\001\002\000\012\004\027\016\024" +
+    "\020\025\021\026\001\002\000\004\014\076\001\002\000" +
+    "\020\006\ufff1\007\ufff1\015\ufff1\017\ufff1\023\ufff1\024\ufff1" +
+    "\026\ufff1\001\002\000\012\004\027\016\024\020\025\021" +
+    "\026\001\002\000\004\014\101\001\002\000\020\006\ufff2" +
+    "\007\ufff2\015\ufff2\017\ufff2\023\ufff2\024\ufff2\026\ufff2\001" +
+    "\002\000\012\004\027\016\024\020\025\021\026\001\002" +
+    "\000\004\014\104\001\002\000\020\006\ufff0\007\ufff0\015" +
+    "\ufff0\017\ufff0\023\ufff0\024\ufff0\026\ufff0\001\002\000\004" +
+    "\014\106\001\002\000\020\006\ufff3\007\ufff3\015\ufff3\017" +
+    "\ufff3\023\ufff3\024\ufff3\026\ufff3\001\002\000\012\004\027" +
+    "\016\024\020\025\021\026\001\002\000\004\014\111\001" +
+    "\002\000\020\006\ufff5\007\ufff5\015\ufff5\017\ufff5\023\ufff5" +
+    "\024\ufff5\026\ufff5\001\002\000\004\002\001\001\002\000" +
+    "\006\002\uffff\004\uffff\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -78,16 +124,33 @@ public class SintacticoCSS extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\033\000\006\031\003\033\004\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\006\034\010" +
-    "\035\014\001\001\000\002\001\001\000\004\035\030\001" +
+    "\000\111\000\010\005\004\010\003\012\005\001\001\000" +
+    "\004\012\112\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\006\006\014\011\011\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\011\053\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\002\022\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\002\031\001\001\000\002\001\001\000" +
+    "\002\001\001\000\004\002\045\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\002\040\001" +
+    "\001\000\002\001\001\000\002\001\001\000\004\002\043" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\002\050\001\001\000\002" +
+    "\001\001\000\002\001\001\000\006\004\056\013\055\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\030\016\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\004\030\025\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\030\032\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001" });
+    "\000\004\013\057\001\001\000\002\001\001\000\002\001" +
+    "\001\000\006\006\062\011\011\001\001\000\004\011\053" +
+    "\001\001\000\002\001\001\000\004\002\104\001\001\000" +
+    "\004\002\071\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\002\074\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\002\077\001\001\000\002\001\001\000\002\001" +
+    "\001\000\004\002\102\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\002" +
+    "\107\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -220,7 +283,7 @@ class CUP$SintacticoCSS$actions {
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // LISTA ::= SNLISTAATRIBUTOS 
+          case 1: // LISTA ::= LISTAATRIBUTOS 
             {
               LinkedList<Atributo> RESULT =null;
 		int lsleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
@@ -229,33 +292,12 @@ class CUP$SintacticoCSS$actions {
 		
             parser.resultado=ls;
         
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTA",23, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTA",3, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // SNLISTAATRIBUTOS ::= tId tLlaveA LISTAATRIBUTOS tLlaveC 
-            {
-              LinkedList<Atributo> RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
-		LinkedList<Atributo> a = (LinkedList<Atributo>)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
-		RESULT=a;
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("SNLISTAATRIBUTOS",25, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
-            }
-          return CUP$SintacticoCSS$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // SNLISTAATRIBUTOS ::= 
-            {
-              LinkedList<Atributo> RESULT =null;
-
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("SNLISTAATRIBUTOS",25, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
-            }
-          return CUP$SintacticoCSS$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // LISTAATRIBUTOS ::= LISTAATRIBUTOS ATRIBUTO 
+          case 2: // LISTAATRIBUTOS ::= LISTAATRIBUTOS ATRIB 
             {
               LinkedList<Atributo> RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
@@ -268,12 +310,12 @@ class CUP$SintacticoCSS$actions {
                     RESULT=a;
                     RESULT.add(b);
                 
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTAATRIBUTOS",26, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTAATRIBUTOS",6, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // LISTAATRIBUTOS ::= ATRIBUTO 
+          case 3: // LISTAATRIBUTOS ::= ATRIB 
             {
               LinkedList<Atributo> RESULT =null;
 		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
@@ -283,100 +325,309 @@ class CUP$SintacticoCSS$actions {
                     RESULT = new LinkedList<>();
                     RESULT.add(b);
                 
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTAATRIBUTOS",26, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTAATRIBUTOS",6, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // LISTAATRIBUTOS ::= tLlaveC 
+          case 4: // ATRIB ::= tId tLlaveA LISTAAT tLlaveC SUBLISTAS 
+            {
+              Atributo RESULT =null;
+		int idleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-4)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-4)).right;
+		String id = (String)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-4)).value;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-2)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-2)).right;
+		LinkedList<Atributo> a = (LinkedList<Atributo>)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-2)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).right;
+		LinkedList<Atributo> b = (LinkedList<Atributo>)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.peek()).value;
+		RESULT=new Atributo(id,a,b);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIB",8, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 5: // SUBLISTAS ::= SUBLISTAS LISTASUB 
+            {
+              LinkedList<Atributo> RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		LinkedList<Atributo> a = (LinkedList<Atributo>)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).right;
+		Atributo b = (Atributo)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.peek()).value;
+		
+            RESULT=a;
+            RESULT.add(b);
+        
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("SUBLISTAS",2, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 6: // SUBLISTAS ::= LISTASUB 
+            {
+              LinkedList<Atributo> RESULT =null;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).right;
+		Atributo b = (Atributo)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.peek()).value;
+		
+            RESULT = new LinkedList<>();
+            RESULT.add(b);
+        
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("SUBLISTAS",2, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 7: // LISTASUB ::= tPunto tId tLlaveA LISTAAT tLlaveC 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)).right;
+		String a = (String)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		LinkedList<Atributo> b = (LinkedList<Atributo>)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		
+            RESULT=new Atributo(a,b);
+        
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTASUB",9, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 8: // LISTAAT ::= LISTAAT ATRIBUTO 
+            {
+              LinkedList<Atributo> RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		LinkedList<Atributo> a = (LinkedList<Atributo>)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).right;
+		Atributo b = (Atributo)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.peek()).value;
+		
+            RESULT=a;
+            RESULT.add(b);
+        
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTAAT",4, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 9: // LISTAAT ::= ATRIBUTO 
+            {
+              LinkedList<Atributo> RESULT =null;
+		int bleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).right;
+		Atributo b = (Atributo)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.peek()).value;
+		
+            RESULT = new LinkedList<>();
+            RESULT.add(b);
+        
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTAAT",4, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 10: // LISTAAT ::= tLlaveC 
             {
               LinkedList<Atributo> RESULT =null;
 
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTAATRIBUTOS",26, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("LISTAAT",4, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // ATRIBUTO ::= tBorder tGuion E tPuntoComa 
+          case 11: // ATRIBUTO ::= tBorder tGuion E tPuntoComa 
             {
               Atributo RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
 		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
 		RESULT = new Atributo("border",a);
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",27, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // ATRIBUTO ::= tHight tDosPuntos E tPuntoComa 
+          case 12: // ATRIBUTO ::= tHight tDosPuntos E tPuntoComa 
             {
               Atributo RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
 		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
 		RESULT = new Atributo("height",a);
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",27, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // ATRIBUTO ::= tWidth tDosPuntos E tPuntoComa 
+          case 13: // ATRIBUTO ::= tWidth tDosPuntos E tPuntoComa 
             {
               Atributo RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
 		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
 		RESULT = new Atributo("width",a);
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",27, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // E ::= tEntero 
+          case 14: // ATRIBUTO ::= tBorder tDosPuntos E tPuntoComa 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		RESULT = new Atributo("BorderTrue",a);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 15: // ATRIBUTO ::= tBorder tGuion tColor tDosPuntos E tPuntoComa 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		RESULT = new Atributo("BorderColor",a);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-5)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 16: // ATRIBUTO ::= tBorder tGuion tWidth tDosPuntos E tPuntoComa 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		RESULT = new Atributo("BorderWidth",a);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-5)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 17: // ATRIBUTO ::= tBorder tGuion tHight tDosPuntos E tPuntoComa 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		RESULT = new Atributo("BorderHight",a);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-5)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 18: // ATRIBUTO ::= tBackground tDosPuntos E tPuntoComa 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		RESULT = new Atributo("Background",a);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 19: // ATRIBUTO ::= tFont tDosPuntos E tPuntoComa 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		RESULT = new Atributo("Font",a);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 20: // ATRIBUTO ::= tAlign tDosPuntos E tPuntoComa 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		RESULT = new Atributo("Align",a);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 21: // ATRIBUTO ::= tFont tGuion tColor tDosPuntos E tPuntoComa 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		RESULT = new Atributo("FontColor",a);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-5)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 22: // ATRIBUTO ::= tFont tGuion tSize tDosPuntos E tPuntoComa 
+            {
+              Atributo RESULT =null;
+		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).right;
+		Expresion a = (Expresion)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-1)).value;
+		RESULT = new Atributo("FontSize",a);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("ATRIBUTO",7, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.elementAt(CUP$SintacticoCSS$top-5)), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+            }
+          return CUP$SintacticoCSS$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 23: // E ::= tEntero 
             {
               Expresion RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.peek()).value;
 		RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, a);
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("E",22, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("E",0, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // E ::= tId 
+          case 24: // E ::= tId 
             {
               Expresion RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.peek()).value;
 		RESULT=new Id(a, aright, aleft);
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("E",22, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("E",0, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // E ::= tCadena 
+          case 25: // E ::= tCadena 
             {
               Expresion RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.peek()).value;
 		RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("E",22, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("E",0, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // E ::= tCaracter 
+          case 26: // E ::= tCaracter 
             {
               Expresion RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$SintacticoCSS$stack.peek()).value;
 		RESULT=new Literal(Simbolo.EnumTipoDato.CARACTER, a);
-              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("E",22, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
+              CUP$SintacticoCSS$result = parser.getSymbolFactory().newSymbol("E",0, ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticoCSS$stack.peek()), RESULT);
             }
           return CUP$SintacticoCSS$result;
 

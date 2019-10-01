@@ -15,6 +15,7 @@ import Entorno.Simbolo;
 import Expresion.Expresion;
 import Expresion.Literal;
 import Sentecia.Sentencia;
+import static Views.Inicio.salidaConsola;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +29,7 @@ import java.util.LinkedList;
  * @author EG
  */
 public class CSS extends Sentencia {
-    LinkedList<Atributo> result;
+    public static LinkedList<Atributo> result;
     String aux = "";
     String texto = "";
     Expresion ruta;
@@ -61,8 +62,9 @@ public class CSS extends Sentencia {
                         e1.printStackTrace();
                 }
          LexicoCSS lexico = new LexicoCSS(new BufferedReader(new StringReader(texto)));
-         System.out.println(texto);
-          SintacticoCSS sintactico = new SintacticoCSS(lexico);
+         System.out.println("Hola");
+         
+        SintacticoCSS sintactico = new SintacticoCSS(lexico);
         //sintactico.salidaConsola = salidaConsola;
         
         try{

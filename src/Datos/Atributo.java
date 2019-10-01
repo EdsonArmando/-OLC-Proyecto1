@@ -22,8 +22,14 @@ public class Atributo {
         this.nombre = nombre;
         this.valor = valor;
     }
-    public Atributo(String id,LinkedList<Atributo> lista){
+     public Atributo(String nombre,LinkedList<Atributo> lista){
+        this.nombre = nombre;
+        this.lista = lista;
+        this.valor = valor;
+    }
+    public Atributo(String id,LinkedList<Atributo> lista,LinkedList<Atributo> subLista){
         this.id = id;
+        this.subLista = subLista;
         this.lista = lista;
     }
       public enum TIPOOPERACION{

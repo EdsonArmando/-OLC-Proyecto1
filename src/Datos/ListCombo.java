@@ -5,11 +5,12 @@
  */
 package Datos;
 
+import Entorno.Entorno;
 import Entorno.Simbolo;
 import Expresion.Array;
 import Expresion.ArrayPosicion;
 import Expresion.Expresion;
-import static Views.Inicio.ent;
+//import static Views.Inicio.ent;
 import static Views.Inicio.salidaConsola;
 import java.util.LinkedList;
 import javax.swing.JComboBox;
@@ -39,7 +40,7 @@ public class ListCombo extends ComponenteJava{
         this.y = 0;
     }
     @Override
-    public void ejecutar(JPanel obj) {
+    public void ejecutar(JPanel obj,Entorno ent) {
          Expresion result;
          for(int i=0;i<this.listaAtributos.size();i++){
                 atrib=this.listaAtributos.get(i);
@@ -69,7 +70,7 @@ public class ListCombo extends ComponenteJava{
                arrayVE = (Array)sim.getValor();
           
             
-            item= arrayVE.returnVal(Integer.parseInt(array.getPo()));
+            item= arrayVE.returnVal(Integer.parseInt(array.getPo()),ent);
             nuevo.addItem(item);
         }
         }

@@ -37,7 +37,6 @@ espacio = \t|\f|" "|\r|\n
 %state COMENTMULTI
 %state COMENTSIMPLE
 %state STRING
-%state UFEX
 
 %%
 
@@ -62,28 +61,32 @@ espacio = \t|\f|" "|\r|\n
 }
 
 <YYINITIAL>{ 
-    {id}         {return addSymbol(new Symbol(Symc.tId,yycolumn,yyline,yytext()));}
-    "{"          {return new Symbol(Symc.tLlaveA,yycolumn,yyline,yytext());}
-    "border"     {return new Symbol(Symc.tBorder,yycolumn,yyline,yytext());}
-    "color"      {return new Symbol(Symc.tColor,yycolumn,yyline,yytext());}
-    "-"          {return new Symbol(Symc.tGuion,yycolumn,yyline,yytext());}
-    ":"          {return new Symbol(Symc.tDosPuntos,yycolumn,yyline,yytext());}
-    "width"      {return new Symbol(Symc.tWidth,yycolumn,yyline,yytext());}
-    "hight"      {return new Symbol(Symc.tHight,yycolumn,yyline,yytext());}
-    "font"       {return new Symbol(Symc.tFont,yycolumn,yyline,yytext());}
-    "align"      {return new Symbol(Symc.tFont,yycolumn,yyline,yytext());}
-    "left"       {return new Symbol(Symc.tLeft,yycolumn,yyline,yytext());}
-    "right"      {return new Symbol(Symc.tRight,yycolumn,yyline,yytext());}
-    "center"     {return new Symbol(Symc.tCenter,yycolumn,yyline,yytext());}
-    "border"     {return new Symbol(Symc.tBorder,yycolumn,yyline,yytext());}
-    "background" {return new Symbol(Symc.tBack,yycolumn,yyline,yytext());}
-    "rgb"        {return new Symbol(Symc.tRGB,yycolumn,yyline,yytext());}
-    "#"          {return new Symbol(Symc.tNumeral,yycolumn,yyline,yytext());}
-    ";"          {return new Symbol(Symc.tPuntoComa,yycolumn,yyline,yytext());}
-    "}"          {return new Symbol(Symc.tLlaveC,yycolumn,yyline,yytext());}
-    {entero}     {return addSymbol(new Symbol(Symc.tEntero,yycolumn,yyline,yytext()));}
+    "/*"            { ESTADOACTUAL = YYINITIAL; yybegin(COMENTMULTI);} 
+    "//"            { ESTADOACTUAL = YYINITIAL; yybegin(COMENTSIMPLE);}
+    "\""            { ESTADOACTUAL = YYINITIAL; yybegin(STRING);}
+    "{"     {return addSymbol(new Symbol(Symc.tLlaveA,yycolumn,yyline,yytext()));}
+    "}"           {return addSymbol(new Symbol(Symc.tLlaveC,yycolumn,yyline,yytext()));}
+    "width"      {return addSymbol(new Symbol(Symc.tWidth,yycolumn,yyline,yytext()));}
+    "hight"           {return addSymbol(new Symbol(Symc.tHight,yycolumn,yyline,yytext()));}
+    "border"       {return addSymbol(new Symbol(Symc.tBorder,yycolumn,yyline,yytext()));}
+    "background"     {return addSymbol(new Symbol(Symc.tBackground,yycolumn,yyline,yytext()));}
+    "align"     {return addSymbol(new Symbol(Symc.tAlign,yycolumn,yyline,yytext()));}
+    "size"     {return addSymbol(new Symbol(Symc.tSize,yycolumn,yyline,yytext()));}
+    "font"     {return addSymbol(new Symbol(Symc.tFont,yycolumn,yyline,yytext()));}
+    "color"     {return addSymbol(new Symbol(Symc.tColor,yycolumn,yyline,yytext()));}    
+    ":"        {return addSymbol(new Symbol(Symc.tDosPuntos,yycolumn,yyline,yytext()));}
+    "="             {return addSymbol(new Symbol(Symc.tIgual,yycolumn,yyline,yytext()));}
+    "-"             {return addSymbol(new Symbol(Symc.tGuion,yycolumn,yyline,yytext()));}
+    ";"             {return addSymbol(new Symbol(Symc.tPuntoComa,yycolumn,yyline,yytext()));}
+    "."             {return addSymbol(new Symbol(Symc.tPunto,yycolumn,yyline,yytext()));}
+   
+    {id}            {return addSymbol(new Symbol(Symc.tId,yycolumn,yyline,yytext()));}
+    {caracter}      {return addSymbol(new Symbol(Symc.tCaracter,yycolumn,yyline,yytext()));}
+    {entero}        {return addSymbol(new Symbol(Symc.tEntero,yycolumn,yyline,yytext()));}
+
 }
-<YYINITIAL, UFEX>{
+
+<YYINITIAL>{
     {espacio}       { /* ignorar */ }
     .               {System.out.println("Error Lexico: <<"+yytext()+">> ["+yyline+" , "+yycolumn+"]");}
 }

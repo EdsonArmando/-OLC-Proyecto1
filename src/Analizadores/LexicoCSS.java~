@@ -22,7 +22,6 @@ public class LexicoCSS implements java_cup.runtime.Scanner {
   public static final int COMENTMULTI = 2;
   public static final int COMENTSIMPLE = 4;
   public static final int STRING = 6;
-  public static final int UFEX = 8;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -31,29 +30,29 @@ public class LexicoCSS implements java_cup.runtime.Scanner {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1,  1,  2,  2,  3,  3,  4, 4
+     0,  0,  1,  1,  2,  2,  3, 3
   };
 
   /** 
    * Translates characters to character classes
    */
   private static final char [] ZZ_CMAP = {
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  5,  9,  4,  4,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  6,  7, 11,  6,  6,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-     4,  0,  6, 28,  0,  0,  0,  0,  0,  0,  7,  0,  0, 17,  0,  8, 
-     1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 18, 29,  0,  0,  0,  0, 
-     0, 25, 11, 15, 14,  2,  2, 23, 22,  2,  2,  2, 16,  2, 24, 12, 
-     2,  2, 13,  2, 21, 27,  2, 19,  2,  2,  2,  0,  0,  0,  0,  3, 
-     0, 25, 11, 15, 14,  2,  2, 23, 22,  2,  2,  2, 16,  2, 24, 12, 
-     2,  2, 13,  2, 21, 27,  2, 19,  2,  2,  2, 10,  0, 30,  0,  0, 
-     0,  0,  0,  0,  0,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     6,  0,  8,  0,  0,  0,  0,  5,  0,  0,  9,  0,  0, 38,  2, 10, 
+     1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 36, 39,  0, 37,  0,  0, 
+     0, 25, 21, 26, 17, 24, 35, 20, 19, 16,  3, 28, 31,  3, 30, 22, 
+     3,  3, 23, 33, 18, 29,  3, 14,  3,  3, 34,  0,  0,  0,  0,  4, 
+     0, 25, 21, 26, 17, 24, 35, 20, 19, 16,  3, 28, 31,  3, 30, 22, 
+     3,  3, 23, 33, 18, 29,  3, 14,  3,  3, 34, 12,  0, 13,  0,  0, 
+     0,  0,  0,  0,  0, 11,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-     0,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-     0,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
   };
 
   /** 
@@ -62,13 +61,18 @@ public class LexicoCSS implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\5\0\1\1\1\2\1\3\1\4\1\5\2\3\1\6"+
-    "\1\7\3\3\1\10\1\11\1\12\2\13\1\14\1\15"+
-    "\1\16\1\3\3\0\2\3\12\0\1\17\1\20\1\21"+
-    "\1\22\4\0\1\23";
+    "\4\0\1\1\1\2\1\3\1\4\1\1\1\5\1\6"+
+    "\1\1\1\7\1\10\5\4\1\1\2\4\1\11\1\12"+
+    "\1\13\1\14\2\15\1\16\1\17\1\20\1\0\1\21"+
+    "\1\22\1\0\1\4\1\0\5\4\1\0\2\4\1\23"+
+    "\1\0\1\4\1\0\3\4\1\0\2\4\1\0\2\4"+
+    "\1\0\1\4\1\0\2\4\1\0\1\4\1\0\2\4"+
+    "\2\24\1\25\2\26\2\27\1\4\1\0\1\4\2\30"+
+    "\1\31\1\32\1\0\1\4\1\0\1\4\1\0\1\4"+
+    "\1\0\1\4\2\33";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[50];
+    int [] result = new int[92];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -93,16 +97,21 @@ public class LexicoCSS implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\37\0\76\0\135\0\174\0\233\0\272\0\331"+
-    "\0\233\0\233\0\370\0\u0117\0\233\0\233\0\u0136\0\u0155"+
-    "\0\u0174\0\233\0\233\0\233\0\233\0\u0193\0\233\0\233"+
-    "\0\233\0\u01b2\0\u01d1\0\u01f0\0\u020f\0\u022e\0\u024d\0\u026c"+
-    "\0\u028b\0\u02aa\0\u02c9\0\u02e8\0\u0307\0\u0326\0\u0345\0\u0364"+
-    "\0\u0383\0\233\0\233\0\233\0\233\0\u03a2\0\u03c1\0\u03e0"+
-    "\0\u03ff\0\233";
+    "\0\0\0\50\0\120\0\170\0\240\0\310\0\240\0\360"+
+    "\0\u0118\0\240\0\240\0\u0140\0\240\0\240\0\u0168\0\u0190"+
+    "\0\u01b8\0\u01e0\0\u0208\0\u0230\0\u0258\0\u0280\0\240\0\240"+
+    "\0\240\0\240\0\240\0\u02a8\0\240\0\240\0\240\0\u02d0"+
+    "\0\240\0\240\0\u02f8\0\u0320\0\u0348\0\u0370\0\u0398\0\u03c0"+
+    "\0\u03e8\0\u0410\0\u0438\0\u0460\0\u0488\0\240\0\u04b0\0\u04d8"+
+    "\0\u0500\0\u0528\0\u0550\0\u0578\0\u05a0\0\u05c8\0\u05f0\0\u0618"+
+    "\0\u0640\0\u0668\0\u0690\0\u06b8\0\u06e0\0\u0708\0\u0730\0\u0758"+
+    "\0\u0780\0\u07a8\0\u07d0\0\u07f8\0\240\0\360\0\360\0\240"+
+    "\0\360\0\240\0\360\0\u0820\0\u0848\0\u0870\0\240\0\360"+
+    "\0\360\0\360\0\u0898\0\u08c0\0\u08e8\0\u0910\0\u0938\0\u0960"+
+    "\0\u0988\0\u09b0\0\240\0\360";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[50];
+    int [] result = new int[92];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -125,31 +134,83 @@ public class LexicoCSS implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\6\1\7\1\10\1\6\2\11\3\6\1\0\1\12"+
-    "\1\13\1\10\1\14\3\10\1\15\1\16\1\17\1\6"+
-    "\1\10\1\20\2\10\1\21\1\6\1\10\1\22\1\23"+
-    "\1\24\7\25\1\26\1\25\1\0\32\25\1\27\31\25"+
-    "\6\30\1\31\30\30\4\6\2\11\3\6\1\0\25\6"+
-    "\40\0\1\7\36\0\3\10\7\0\6\10\2\0\1\10"+
-    "\1\0\5\10\1\0\1\10\4\0\3\10\7\0\6\10"+
-    "\2\0\1\10\1\0\4\10\1\32\1\0\1\10\4\0"+
-    "\3\10\7\0\6\10\2\0\1\10\1\33\5\10\1\0"+
-    "\1\10\4\0\3\10\7\0\6\10\2\0\1\10\1\34"+
-    "\5\10\1\0\1\10\4\0\3\10\7\0\6\10\2\0"+
-    "\1\10\1\35\5\10\1\0\1\10\4\0\3\10\7\0"+
-    "\5\10\1\36\2\0\1\10\1\0\5\10\1\0\1\10"+
-    "\13\0\1\27\27\0\3\10\7\0\4\10\1\37\1\10"+
-    "\2\0\1\10\1\0\5\10\1\0\1\10\32\0\1\40"+
-    "\25\0\1\41\47\0\1\42\10\0\3\10\7\0\6\10"+
-    "\2\0\1\10\1\43\5\10\1\0\1\10\4\0\3\10"+
-    "\7\0\6\10\2\0\1\10\1\0\5\10\1\44\1\10"+
-    "\31\0\1\45\35\0\1\46\37\0\1\47\37\0\1\50"+
-    "\36\0\1\51\34\0\1\52\37\0\1\53\35\0\1\54"+
-    "\41\0\1\55\23\0\1\56\35\0\1\57\55\0\1\60"+
-    "\33\0\1\61\24\0\1\62\20\0";
+    "\1\5\1\6\1\7\1\10\1\5\1\11\2\12\1\13"+
+    "\1\5\1\14\1\0\1\15\1\16\1\17\1\5\3\10"+
+    "\1\20\1\10\1\21\3\10\1\22\1\23\1\5\4\10"+
+    "\1\24\1\25\1\10\1\26\1\27\1\30\1\31\1\32"+
+    "\11\33\1\34\1\33\1\0\43\33\1\35\40\33\10\36"+
+    "\1\37\37\36\51\0\1\6\47\0\1\10\1\0\2\10"+
+    "\11\0\1\10\1\0\13\10\1\0\4\10\1\0\3\10"+
+    "\4\0\5\40\1\0\42\40\11\0\1\41\1\42\36\0"+
+    "\1\10\1\0\2\10\11\0\1\10\1\43\1\44\12\10"+
+    "\1\0\4\10\1\0\3\10\5\0\1\10\1\0\2\10"+
+    "\11\0\1\10\1\45\1\46\12\10\1\0\4\10\1\0"+
+    "\3\10\5\0\1\10\1\0\2\10\11\0\1\10\1\0"+
+    "\6\10\1\47\2\10\1\50\1\10\1\0\4\10\1\0"+
+    "\3\10\5\0\1\10\1\0\2\10\11\0\1\10\1\0"+
+    "\13\10\1\0\3\10\1\51\1\0\3\10\5\0\1\10"+
+    "\1\0\2\10\11\0\1\10\1\0\6\10\1\52\4\10"+
+    "\1\0\4\10\1\0\3\10\23\0\2\53\30\0\1\10"+
+    "\1\0\2\10\11\0\1\10\1\53\1\54\12\10\1\0"+
+    "\4\10\1\0\3\10\5\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\6\10\1\55\4\10\1\0\4\10\1\0"+
+    "\3\10\16\0\1\35\42\0\1\56\63\0\1\57\27\0"+
+    "\1\10\1\0\2\10\11\0\1\10\1\0\1\10\1\60"+
+    "\11\10\1\0\4\10\1\0\3\10\30\0\1\61\24\0"+
+    "\1\10\1\0\2\10\11\0\1\10\1\0\4\10\1\62"+
+    "\6\10\1\0\4\10\1\0\3\10\5\0\1\10\1\0"+
+    "\2\10\11\0\1\10\1\0\7\10\1\63\3\10\1\0"+
+    "\4\10\1\0\3\10\5\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\12\10\1\64\1\0\4\10\1\0\3\10"+
+    "\5\0\1\10\1\0\2\10\11\0\1\10\1\65\1\66"+
+    "\12\10\1\0\4\10\1\0\3\10\5\0\1\10\1\0"+
+    "\2\10\11\0\1\10\1\0\13\10\1\0\3\10\1\67"+
+    "\1\0\3\10\46\0\1\70\6\0\1\10\1\0\2\10"+
+    "\11\0\1\10\1\0\13\10\1\0\4\10\1\0\1\10"+
+    "\1\71\1\10\5\0\1\10\1\0\2\10\11\0\1\10"+
+    "\1\0\13\10\1\0\2\10\1\72\1\10\1\0\3\10"+
+    "\26\0\1\73\26\0\1\10\1\0\2\10\11\0\1\10"+
+    "\1\0\2\10\1\74\10\10\1\0\4\10\1\0\3\10"+
+    "\27\0\1\75\25\0\1\10\1\0\2\10\11\0\1\10"+
+    "\1\0\3\10\1\76\7\10\1\0\4\10\1\0\3\10"+
+    "\5\0\1\10\1\0\2\10\11\0\1\10\1\0\1\10"+
+    "\1\77\11\10\1\0\4\10\1\0\3\10\5\0\1\10"+
+    "\1\0\2\10\11\0\1\10\1\0\13\10\1\100\1\101"+
+    "\3\10\1\0\3\10\30\0\1\102\24\0\1\10\1\0"+
+    "\2\10\11\0\1\10\1\0\4\10\1\103\6\10\1\0"+
+    "\4\10\1\0\3\10\5\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\6\10\1\104\4\10\1\0\4\10\1\0"+
+    "\3\10\34\0\1\105\20\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\10\10\1\106\2\10\1\0\4\10\1\0"+
+    "\3\10\5\0\1\10\1\0\2\10\11\0\1\10\1\0"+
+    "\2\10\1\107\10\10\1\0\4\10\1\0\3\10\27\0"+
+    "\1\110\25\0\1\10\1\0\2\10\11\0\1\10\1\0"+
+    "\3\10\1\111\7\10\1\0\4\10\1\0\3\10\26\0"+
+    "\1\112\26\0\1\10\1\0\2\10\11\0\1\10\1\0"+
+    "\2\10\1\113\10\10\1\0\4\10\1\0\3\10\5\0"+
+    "\1\10\1\0\2\10\11\0\1\10\1\0\10\10\1\114"+
+    "\2\10\1\0\4\10\1\0\3\10\30\0\1\115\24\0"+
+    "\1\10\1\0\2\10\11\0\1\10\1\0\4\10\1\116"+
+    "\6\10\1\0\4\10\1\0\3\10\42\0\1\117\12\0"+
+    "\1\10\1\0\2\10\11\0\1\10\1\0\13\10\1\0"+
+    "\2\10\1\120\1\10\1\0\3\10\5\0\1\10\1\0"+
+    "\2\10\11\0\1\10\1\0\7\10\1\121\3\10\1\0"+
+    "\4\10\1\0\3\10\5\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\7\10\1\122\3\10\1\0\4\10\1\0"+
+    "\3\10\33\0\1\123\21\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\7\10\1\124\3\10\1\0\4\10\1\0"+
+    "\3\10\32\0\1\125\22\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\6\10\1\126\4\10\1\0\4\10\1\0"+
+    "\3\10\41\0\1\127\13\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\13\10\1\0\1\10\1\130\2\10\1\0"+
+    "\3\10\42\0\1\131\12\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\13\10\1\0\2\10\1\132\1\10\1\0"+
+    "\3\10\25\0\1\133\27\0\1\10\1\0\2\10\11\0"+
+    "\1\10\1\0\1\10\1\134\11\10\1\0\4\10\1\0"+
+    "\3\10\4\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[1054];
+    int [] result = new int[2520];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -187,12 +248,17 @@ public class LexicoCSS implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\5\0\1\11\2\1\2\11\2\1\2\11\3\1\4\11"+
-    "\1\1\3\11\1\1\3\0\2\1\12\0\4\11\4\0"+
-    "\1\11";
+    "\4\0\1\11\1\1\1\11\2\1\2\11\1\1\2\11"+
+    "\10\1\5\11\1\1\3\11\1\0\2\11\1\0\1\1"+
+    "\1\0\5\1\1\0\2\1\1\11\1\0\1\1\1\0"+
+    "\3\1\1\0\2\1\1\0\2\1\1\0\1\1\1\0"+
+    "\2\1\1\0\1\1\1\0\2\1\1\11\2\1\1\11"+
+    "\1\1\1\11\2\1\1\0\1\1\1\11\3\1\1\0"+
+    "\1\1\1\0\1\1\1\0\1\1\1\0\1\1\1\11"+
+    "\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[50];
+    int [] result = new int[92];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -649,100 +715,140 @@ public class LexicoCSS implements java_cup.runtime.Scanner {
             { System.out.println("Error Lexico: <<"+yytext()+">> ["+yyline+" , "+yycolumn+"]");
             } 
             // fall through
-          case 20: break;
+          case 28: break;
           case 2: 
             { return addSymbol(new Symbol(Symc.tEntero,yycolumn,yyline,yytext()));
             } 
             // fall through
-          case 21: break;
-          case 3: 
-            { return addSymbol(new Symbol(Symc.tId,yycolumn,yyline,yytext()));
-            } 
-            // fall through
-          case 22: break;
-          case 4: 
-            { /* ignorar */
-            } 
-            // fall through
-          case 23: break;
-          case 5: 
-            { return new Symbol(Symc.tLlaveA,yycolumn,yyline,yytext());
-            } 
-            // fall through
-          case 24: break;
-          case 6: 
-            { return new Symbol(Symc.tGuion,yycolumn,yyline,yytext());
-            } 
-            // fall through
-          case 25: break;
-          case 7: 
-            { return new Symbol(Symc.tDosPuntos,yycolumn,yyline,yytext());
-            } 
-            // fall through
-          case 26: break;
-          case 8: 
-            { return new Symbol(Symc.tNumeral,yycolumn,yyline,yytext());
-            } 
-            // fall through
-          case 27: break;
-          case 9: 
-            { return new Symbol(Symc.tPuntoComa,yycolumn,yyline,yytext());
-            } 
-            // fall through
-          case 28: break;
-          case 10: 
-            { return new Symbol(Symc.tLlaveC,yycolumn,yyline,yytext());
-            } 
-            // fall through
           case 29: break;
-          case 11: 
-            { 
+          case 3: 
+            { return addSymbol(new Symbol(Symc.tPunto,yycolumn,yyline,yytext()));
             } 
             // fall through
           case 30: break;
-          case 12: 
-            { yybegin(ESTADOACTUAL);
+          case 4: 
+            { return addSymbol(new Symbol(Symc.tId,yycolumn,yyline,yytext()));
             } 
             // fall through
           case 31: break;
-          case 13: 
-            { cadena += yytext();
+          case 5: 
+            { /* ignorar */
             } 
             // fall through
           case 32: break;
+          case 6: 
+            { ESTADOACTUAL = YYINITIAL; yybegin(STRING);
+            } 
+            // fall through
+          case 33: break;
+          case 7: 
+            { return addSymbol(new Symbol(Symc.tLlaveA,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 34: break;
+          case 8: 
+            { return addSymbol(new Symbol(Symc.tLlaveC,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 35: break;
+          case 9: 
+            { return addSymbol(new Symbol(Symc.tDosPuntos,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 36: break;
+          case 10: 
+            { return addSymbol(new Symbol(Symc.tIgual,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 37: break;
+          case 11: 
+            { return addSymbol(new Symbol(Symc.tGuion,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 38: break;
+          case 12: 
+            { return addSymbol(new Symbol(Symc.tPuntoComa,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 39: break;
+          case 13: 
+            { 
+            } 
+            // fall through
+          case 40: break;
           case 14: 
+            { yybegin(ESTADOACTUAL);
+            } 
+            // fall through
+          case 41: break;
+          case 15: 
+            { cadena += yytext();
+            } 
+            // fall through
+          case 42: break;
+          case 16: 
             { yybegin(ESTADOACTUAL);
             String temporal = cadena; 
             cadena = "";
             return addSymbol( new Symbol(Symc.tCadena, yychar,yyline,temporal) );
             } 
             // fall through
-          case 33: break;
-          case 15: 
-            { return new Symbol(Symc.tRight,yycolumn,yyline,yytext());
-            } 
-            // fall through
-          case 34: break;
-          case 16: 
-            { return new Symbol(Symc.tWidth,yycolumn,yyline,yytext());
-            } 
-            // fall through
-          case 35: break;
+          case 43: break;
           case 17: 
-            { return new Symbol(Symc.tHight,yycolumn,yyline,yytext());
+            { ESTADOACTUAL = YYINITIAL; yybegin(COMENTMULTI);
             } 
             // fall through
-          case 36: break;
+          case 44: break;
           case 18: 
-            { return new Symbol(Symc.tFont,yycolumn,yyline,yytext());
+            { ESTADOACTUAL = YYINITIAL; yybegin(COMENTSIMPLE);
             } 
             // fall through
-          case 37: break;
+          case 45: break;
           case 19: 
-            { return new Symbol(Symc.tBack,yycolumn,yyline,yytext());
+            { return addSymbol(new Symbol(Symc.tCaracter,yycolumn,yyline,yytext()));
             } 
             // fall through
-          case 38: break;
+          case 46: break;
+          case 20: 
+            { return addSymbol(new Symbol(Symc.tSize,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 47: break;
+          case 21: 
+            { return addSymbol(new Symbol(Symc.tFont,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 48: break;
+          case 22: 
+            { return addSymbol(new Symbol(Symc.tWidth,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 49: break;
+          case 23: 
+            { return addSymbol(new Symbol(Symc.tHight,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 50: break;
+          case 24: 
+            { return addSymbol(new Symbol(Symc.tAlign,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 51: break;
+          case 25: 
+            { return addSymbol(new Symbol(Symc.tColor,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 52: break;
+          case 26: 
+            { return addSymbol(new Symbol(Symc.tBorder,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 53: break;
+          case 27: 
+            { return addSymbol(new Symbol(Symc.tBackground,yycolumn,yyline,yytext()));
+            } 
+            // fall through
+          case 54: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
