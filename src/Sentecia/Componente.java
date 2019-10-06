@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  * @author EG
  */
 public class Componente extends Sentencia{
-    String id;
+    public String id;
     Entorno nuevo=new Entorno(null);
     boolean ejecutado=false;
     public LinkedList<Sentencia> listaAentenciaComponent;
@@ -40,15 +40,18 @@ public class Componente extends Sentencia{
     }
  public void ejecutar(Entorno ent,JPanel ento) {
         this.ejecutado=true;
-        System.out.println("HolaIDCOMO");
         nuevo.tabla.putAll(ent.tabla);
         ent.insertar(this.id, new Simbolo(EnumTipoDato.COMPONENTE, this.listaAentenciaComponent));
          
         for(int cont =0;cont<this.listaAentenciaComponent.size(); cont++){
             
             if(listaAentenciaComponent.get(cont) instanceof Return){
+               
                 Return ret = (Return) listaAentenciaComponent.get(cont);
                 ret.ejecutar(nuevo, ento);
+            }else if(listaAentenciaComponent.get(cont) instanceof Si){
+                Si s = (Si) listaAentenciaComponent.get(cont);
+                s.ejecutar(nuevo, ento);
             }else{
                 listaAentenciaComponent.get(cont).ejecutar(nuevo);
             }

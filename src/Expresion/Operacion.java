@@ -38,7 +38,8 @@ public class Operacion extends Expresion{
         TRUE,
         FALSE,
         POTENCIA,
-        CONCATENACION
+        CONCATENACION,
+        ARRAYPOSICION
     }
    
     private final Tipo_operacion tipo;
@@ -49,7 +50,11 @@ public class Operacion extends Expresion{
     private Expresion operadorDer;
    
     private Object valor;
-
+    
+    private ArrayPosicion array;
+    
+    private Simbolo sim;
+    private Array arrayVE;
     public Operacion(Expresion operadorIzq, Expresion operadorDer, Tipo_operacion tipo) {
         this.tipo = tipo;
         this.operadorIzq = operadorIzq;
@@ -112,8 +117,16 @@ public class Operacion extends Expresion{
                
                  resultado = Double.valueOf(a.valor.toString())/Double.valueOf(b.valor.toString());
                 return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
+            }else if(a instanceof ArrayPosicion || b instanceof ArrayPosicion){
+                array=(ArrayPosicion) b;
+                sim = ent.obtener(array.getId());
+                arrayVE = (Array)sim.getValor();
+                Expresion item= array.getPosicion();
+                resultado = Double.valueOf(a.valor.toString())/Double.parseDouble(arrayVE.returnVal(Integer.parseInt(item.valor.toString()),ent));
+     
+                return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
             }else{
-                salidaConsola.append("Error de tipos, la división debe hacerse entre números.");
+                salidaConsola.append("Error de tipos, la division debe hacerse entre números.");
                 return null;
             }
         }else if(tipo== Tipo_operacion.MULTIPLICACION){
@@ -121,14 +134,30 @@ public class Operacion extends Expresion{
            if(a instanceof Literal && b instanceof Literal){
                 resultado = Double.valueOf(a.valor.toString())*Double.valueOf(b.valor.toString());
                 return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
+            }else if(a instanceof ArrayPosicion || b instanceof ArrayPosicion){
+                array=(ArrayPosicion) b;
+                sim = ent.obtener(array.getId());
+                arrayVE = (Array)sim.getValor();
+                Expresion item= array.getPosicion();
+                resultado = Double.valueOf(a.valor.toString())*Double.parseDouble(arrayVE.returnVal(Integer.parseInt(item.valor.toString()),ent));
+     
+                return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
             }else{
-                salidaConsola.append("Error de tipos, la multiplicación debe hacerse entre números.");
+                salidaConsola.append("Error de tipos, la multiplicacion debe hacerse entre números.");
                 return null;
             }
         }else if(tipo== Tipo_operacion.RESTA){
            
             if(a instanceof Literal && b instanceof Literal){
                  resultado = Double.valueOf(a.valor.toString())-Double.valueOf(b.valor.toString());
+                return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
+            }else if(a instanceof ArrayPosicion || b instanceof ArrayPosicion){
+                array=(ArrayPosicion) b;
+                sim = ent.obtener(array.getId());
+                arrayVE = (Array)sim.getValor();
+                Expresion item= array.getPosicion();
+                resultado = Double.valueOf(a.valor.toString())-Double.parseDouble(arrayVE.returnVal(Integer.parseInt(item.valor.toString()),ent));
+     
                 return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
             }else{
                 salidaConsola.append("Error de tipos, la resta debe hacerse entre números.");
@@ -138,8 +167,17 @@ public class Operacion extends Expresion{
             if(a instanceof Literal && b instanceof Literal){
                  resultado = Math.pow(Double.valueOf(a.valor.toString()), Double.valueOf(b.valor.toString()));
                 return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
+            }else if(a instanceof ArrayPosicion || b instanceof ArrayPosicion){
+                array=(ArrayPosicion) b;
+                sim = ent.obtener(array.getId());
+                arrayVE = (Array)sim.getValor();
+                Expresion item= array.getPosicion();
+                            
+                resultado = Math.pow(Double.valueOf(a.valor.toString()),Double.parseDouble(arrayVE.returnVal(Integer.parseInt(item.valor.toString()),ent)));
+     
+                return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
             }else{
-                salidaConsola.append("Error de tipos, la resta debe hacerse entre números.");
+                salidaConsola.append("Error de tipos, la potencia debe hacerse entre números.");
                 return null;
             }
         }else if(tipo== Tipo_operacion.SUMA){
@@ -150,7 +188,28 @@ public class Operacion extends Expresion{
                  }catch(Exception e){
                      resultado = a.valor.toString()+b.valor.toString();
                  }
-               
+                return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
+            }else if(a instanceof ArrayPosicion || b instanceof ArrayPosicion){
+                Expresion item=null;
+               try{
+               array=(ArrayPosicion) b;
+                sim = ent.obtener(array.getId());
+                arrayVE = (Array)sim.getValor();
+                item= array.getPosicion();
+               }catch(Exception ex){
+                   array=(ArrayPosicion) a;
+                sim = ent.obtener(array.getId());
+                arrayVE = (Array)sim.getValor();
+                item= array.getPosicion();
+               }
+                
+                try{
+                    resultado = Double.valueOf(a.valor.toString())+Double.parseDouble(arrayVE.returnVal(Integer.parseInt(item.valor.toString()),ent));
+                }catch(Exception e){
+                    resultado = a.valor.toString()+arrayVE.returnVal(Integer.parseInt(item.valor.toString()),ent);
+                }
+                
+     
                 return new Literal(Simbolo.EnumTipoDato.DOBLE,resultado);
             }else{
                 salidaConsola.append("Error de tipos, la suma debe hacerse entre números.");
@@ -267,6 +326,7 @@ public class Operacion extends Expresion{
             return null;
         }
     }
+ 
 
     @Override
     public Simbolo.EnumTipoDato getTipo() {

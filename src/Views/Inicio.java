@@ -11,9 +11,12 @@ import Analizadores.SintacticoHTML;
 import Analizadores.SintacticoUFE;
 import Datos.Panel;
 import Entorno.Entorno;
+import IntruccionHTML.Div;
 import IntruccionHTML.InstruccionHtml;
 import IntruccionHTML.Noufe;
+import Sentecia.Componente;
 import Sentecia.Declaracion;
+import Sentecia.Render;
 import Sentecia.Sentencia;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -142,6 +145,7 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     static String nuevo;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        salidaConsola.setText("");
         Component comp = jTabbedPane1.getComponentAt(jTabbedPane1.getSelectedIndex());
         tex1=(java.awt.TextArea) comp;
         String datos = tex1.getText();
@@ -156,10 +160,10 @@ public class Inicio extends javax.swing.JFrame {
         }
         resultados=sintactico.resultados;
         nuevo=sintactico.nuevo;
+        Div divs=null;
         for(InstruccionHtml ins:resultados){
             ins.Ejecutar();
         }
-        
         System.out.println("Analisis Comleto HTML");
         AnalizarAppUfe();
         //analizarEntrada(datos);
@@ -286,11 +290,22 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1.setLayout(null);
         principal.setLayout(null);
         Declaracion decl;
+        Componente compo=null;
+        Render idComponente=null;
         listaInstrucciones = sintactico.resultado;
         LinkedList<Sentencia> listaInstrucciones = sintactico.resultado;
         for (Sentencia i : listaInstrucciones) {
             if(i!=null)
-                i.ejecutar(ent);
+                if(i instanceof Render){
+                    idComponente=(Render)i; 
+                }else if(i instanceof Componente){
+                    compo = (Componente)i;
+                    if(compo.id.equals(idComponente.idComponente)){
+                        i.ejecutar(ent);
+                    }
+                }else{
+                    i.ejecutar(ent);
+                }     
         }
         jPanel1.repaint();
         principal.setContentPane(jPanel1);

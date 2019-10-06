@@ -62,13 +62,6 @@ public class Entorno {
     }
     
     public void modificarVariable(String nombre, Simbolo valor){
-          if (tabla.containsKey(nombre)) {
-            Simbolo sim = tabla.get(nombre);
-            tabla.remove(nombre);
-            tabla.put(nombre, valor);
-        
-        }else{
-          salidaConsola.append("La variable '" + nombre + "' NO existe");
-          }
+          tabla.put(nombre, valor);
     }
 }

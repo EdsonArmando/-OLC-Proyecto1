@@ -33,20 +33,19 @@ public class Return extends Sentencia{
             }
         }else{
         salidaConsola.append(id);
-     }   
+        }   
     }
     public void ejecutar(Entorno ent,JPanel padre) {
         
+        if(id.equals("")){
         salidaConsola.append("Ejecutando la instruccion 2");
         if(this.listaComponentes !=null){
              for(int i=0;i<this.listaComponentes.size();i++){
             this.listaComponentes.get(i).ejecutar(padre,ent);
+            }
+        }   
         }
-        }else{
-        salidaConsola.append(id);
-     }   
     }
-
     @Override
     public EnumTipoSentencia getTipo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

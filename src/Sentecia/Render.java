@@ -14,15 +14,15 @@ import static Views.Inicio.salidaConsola;
  * @author EG
  */
 public class Render extends Sentencia{
-    String idComponente;
-    String idComponenteHtml;
+    public String idComponente;
+    public String idComponenteHtml;
     public Render(String id, String idCompoHtml){
         this.idComponente =id;
         this.idComponenteHtml = idCompoHtml;
     }
     @Override
     public void ejecutar(Entorno ent) {
-        salidaConsola.append("Ejecutando renderizado");
+        salidaConsola.append("Ejecutando renderizado"+idComponente+"\n");
     }
 
     @Override

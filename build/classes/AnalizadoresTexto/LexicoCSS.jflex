@@ -70,11 +70,15 @@ espacio = \t|\f|" "|\r|\n
     "hight"           {return addSymbol(new Symbol(Symc.tHight,yycolumn,yyline,yytext()));}
     "border"       {return addSymbol(new Symbol(Symc.tBorder,yycolumn,yyline,yytext()));}
     "background"     {return addSymbol(new Symbol(Symc.tBackground,yycolumn,yyline,yytext()));}
+    "rgb"       {return addSymbol(new Symbol(Symc.tRgb,yycolumn,yyline,yytext()));}
     "align"     {return addSymbol(new Symbol(Symc.tAlign,yycolumn,yyline,yytext()));}
     "size"     {return addSymbol(new Symbol(Symc.tSize,yycolumn,yyline,yytext()));}
     "font"     {return addSymbol(new Symbol(Symc.tFont,yycolumn,yyline,yytext()));}
     "color"     {return addSymbol(new Symbol(Symc.tColor,yycolumn,yyline,yytext()));}    
     ":"        {return addSymbol(new Symbol(Symc.tDosPuntos,yycolumn,yyline,yytext()));}
+    "("        {return addSymbol(new Symbol(Symc.tParA,yycolumn,yyline,yytext()));}
+    ")"        {return addSymbol(new Symbol(Symc.tParC,yycolumn,yyline,yytext()));}
+    ","        {return addSymbol(new Symbol(Symc.tComa,yycolumn,yyline,yytext()));}
     "="             {return addSymbol(new Symbol(Symc.tIgual,yycolumn,yyline,yytext()));}
     "-"             {return addSymbol(new Symbol(Symc.tGuion,yycolumn,yyline,yytext()));}
     ";"             {return addSymbol(new Symbol(Symc.tPuntoComa,yycolumn,yyline,yytext()));}

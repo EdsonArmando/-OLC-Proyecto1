@@ -19,7 +19,6 @@ parser code
 
     //public Panel resultado;
     public LinkedList<Sentencia> resultado = new LinkedList<>();
-    
 
     //Metodo al que se llama automaticamente ante algun error sintactico
     public void syntax_error(Symbol s)
@@ -72,9 +71,9 @@ action code
 :}  
 
 
-terminal String tCadena, tComponent, tReturn, tVar, tIgual, tPuntoComa, tLlaveC,tClass;
+terminal String tCadena,tReturnMenorQ,tMenorDiv,tRepetir,tMientras,tSiNo, tComponent, tReturn, tVar, tIgual, tPuntoComa, tLlaveC,tClass;
 terminal String tLlaveA,tCorcheA,tCorcheC, tParA, tParC, tTrue, tFalse, tId, tCaracter, tEntero, tClassname;
-terminal String tDoble,tOr,tAnd,tXor,tOnClick,tDifQ,tMax,tMin,tComa, tSuma, tResta, tMult, tDiv, tPow, tMayorQ, tMenorQ, tText;
+terminal String tDoble,tDivMayorQ,tOr,tAnd,tXor,tOnClick,tDifQ,tMax,tMin,tComa, tSuma, tResta, tMult, tDiv, tPow, tMayorQ, tMenorQ, tText;
 terminal String UMENOS,tImport,tSrc,tImagen,tLlaveCX,tDobleIgual,tSi,tPanel,tList,tElement,tItem,tSpinner,tTextField,tBoton,tCadenas,tImprimir,tVal,tRender,tRender2,tX, tY, tHeight, tWidth, tColor, tBorder, tDiagonal, tIdEtq, tNumero;
 
 non terminal SENTS;
@@ -84,7 +83,7 @@ non terminal SNLINSTRUFEX;
 non terminal LISTAPANEL;
 
 non terminal LinkedList<Sentencia> INICIO, LISTASENTS,LSENTCOMPONENTE;
-non terminal Sentencia SI,IMPRIMIR,CSS,SENTCOMPONENTE,DECLARACION,SENTENCIAS, COMPONENTE,RENDER, RETURN;
+non terminal Sentencia SI,MIENTRAS,REPETIR,IMPRIMIR,CSS,SENTCOMPONENTE,DECLARACION,SENTENCIAS, COMPONENTE,RENDER, RETURN;
 non terminal Expresion E,LISTA;
 non terminal LinkedList<Expresion> LISTAE,LISTELEMENT,LISTAITEM;
 non terminal LinkedList<Declaracion> LISTASIGNACION;
@@ -101,12 +100,15 @@ non terminal Spinner JSPINNER;
 non terminal Imagen IMAGEN;
 non terminal ComponenteJava INSTRUFEX ,RETCOMP;
 non terminal Atributo ATRIBUTO;
-
+non terminal SubSi instruccion_if;
+non terminal LinkedList<SubSi> instrucciones_elseif;
+non terminal SubSi instruccion_elseif;
+non terminal SubSi instruccion_else;
 non terminal LinkedList<Atributo> SNLISTAATRIBUTOS,LISTAATRIBUTOS;
 non terminal Tipo_operacion RELA;
 precedence left tSuma, tResta,UMENOS;
 precedence left tMult, tDiv;
-precedence left tPow, tMayorQ,tMenorQ,tIgual,tDifQ,tDiagonal;
+precedence left tPow, tMayorQ,tMenorQ,tIgual,tDifQ,tDiagonal,tDobleIgual;
 precedence left tAnd, tOr,tXor;
 
 
@@ -134,6 +136,9 @@ SENTENCIAS ::= COMPONENTE:a {:RESULT = a;:}
             | RENDER:a {:RESULT=a;:}
             | RETURN:a {:RESULT=a;:}
             | CSS:a {:RESULT=a;:}  
+            | SI:a {:RESULT=a;:}
+            | MIENTRAS:a {:RESULT=a;:}
+            | REPETIR:a {:RESULT=a;:}
             ;
 CSS ::= E:a tPuntoComa {:RESULT=new CSS(a);:}
     ;
@@ -167,9 +172,10 @@ LISTASIGNACION ::= LISTASIGNACION:a tComa ASIGNACION:b {:
             
 ASIGNACION ::= tId:a tIgual E:asignacion {:RESULT = new Declaracion(a,asignacion);:}
             | tId:nombre {:RESULT = new Declaracion(nombre,null);:}
-            ;
-
-RENDER ::= tRender tParA tMenorQ tDiv tId:nombre tMayorQ tComa tId:val tParC tPuntoComa {: RESULT = new Render(nombre,val); :}
+            | tId:a tIgual tLlaveA LISTAE:ls tLlaveC {:RESULT = new Declaracion(a,(Array)new Array(Simbolo.EnumTipoDato.ARRAY, ls));:}
+            ;   
+                
+RENDER ::= tRender tParA tMenorQ tId:nombre tDivMayorQ tComa tId:val tParC tPuntoComa {: RESULT = new Render(nombre,val); :}
           |error 
         ; 
 REASIGNACION ::= tId:nombre tIgual E:valor tPuntoComa {:RESULT=new Reasignacion(nombre,valor);:}
@@ -193,17 +199,42 @@ SENTCOMPONENTE ::= DECLARACION:a {:RESULT=a;:}
                 | IMPRIMIR:a {:RESULT=a;:}
                 | RETURN:a {:RESULT=a;:}
                 | SI:a {:RESULT=a;:}
+                | MIENTRAS:a {:RESULT=a;:}
+                | REPETIR:a {:RESULT=a;:}
                 ;
-
-SI ::= tSi tParA E:a tParC tLlaveA  LISTASENTS:ls tLlaveC {:
-        RESULT=new Si(a,ls);
+REPETIR ::= tRepetir tParA E:a tParC tLlaveA LISTASENTS:b tLlaveC {:
+        RESULT = new Repetir((Operacion)a,b);
     :}
     ;
+MIENTRAS ::= tMientras tParA E:a tParC tLlaveA LISTASENTS:b tLlaveC {:
+        RESULT = new Mientras((Operacion)a,b);
+    :}
+    ;
+SI ::= 
+   instruccion_if:a {:RESULT=new Si(a);:}
+ | instruccion_if:a instrucciones_elseif:b {:RESULT=new Si(a,b);:}
+ | instruccion_if:a instrucciones_elseif:b instruccion_else:c {:RESULT=new Si(a,b,c);:}
+ | instruccion_if:a instruccion_else:b {:RESULT=new Si(a,b);:}
+;
+instruccion_if ::= 
+   tSi tParA E:a tParC tLlaveA LISTASENTS:b tLlaveC {:RESULT=new SubSi((Operacion)a,b);:}
+;
+
+instrucciones_elseif ::= 
+   instrucciones_elseif:a instruccion_elseif:b{:RESULT=a; RESULT.add(b);:}
+ | instruccion_elseif:a{:RESULT=new LinkedList<>(); RESULT.add(a);:}
+; 
+
+instruccion_elseif ::= 
+   tSiNo tSi tParA E:a tParC tLlaveA LISTASENTS:b tLlaveC {:RESULT=new SubSi((Operacion)a,b);:}
+;
+
+instruccion_else ::= 
+   tSiNo tLlaveA LISTASENTS:a tLlaveC {:RESULT=new SubSi(a);:}
+;
 RETURN ::= tReturn  LINSTRUFEX:lf tParC tPuntoComa {:RESULT=new Return(lf);:}
-         | tReturn  tMenorQ tDiagonal tId:id tMayorQ tParC tPuntoComa {:RESULT=new Return(id);:}
+         | tReturn tReturnMenorQ tId:id tMayorQ tParC tPuntoComa {:RESULT=new Return(id);:}
         ;
-
-
 SIONOLINSTRUFEX ::= LINSTRUFEX:a tMenorQ {:RESULT=a;:}
                 | tMenorQ
                 ;
@@ -228,7 +259,7 @@ INSTRUFEX ::= PANEL:a {:RESULT=a;:}
               |IMAGEN:a {:RESULT=a;:}
               |IDCOMPO:a {:RESULT=a;:}
             ;
-IDCOMPO ::=  tDiagonal tId:a tMayorQ {:RESULT=new IdComponente(a);:}
+IDCOMPO ::=  tMenorDiv tId:a tMayorQ {:RESULT=new IdComponente(a);:}
         ;
 IMAGEN ::= tMenorQ tImagen SNLISTAATRIBUTOS:ls tMayorQ {:
             RESULT=new Imagen(ls);
@@ -267,7 +298,7 @@ BOTON ::= tMenorQ tBoton SNLISTAATRIBUTOS:ls tMayorQ LISTA:lt tDiagonal tBoton t
         :}
         ;
 
-LISTA ::= tLlaveA tId:a tCorcheA tEntero:exp tCorcheC tLlaveC tMenorQ {:RESULT=new ArrayPosicion(a,exp,Simbolo.EnumTipoDato.ARRAY);:}
+LISTA ::= tLlaveA E:a tLlaveC tMenorQ {:RESULT=a;:}
          | tEntero:exp tMenorQ {:RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, exp);:}
          | tMenorQ tItem tMayorQ LISTA:a{:RESULT=a;:}
          | tCadena:a tMenorQ{:RESULT=new Literal(Simbolo.EnumTipoDato.CADENA, a);:}
@@ -318,7 +349,7 @@ E   ::=  tResta E:a{:RESULT=new Operacion(a,Operacion.Tipo_operacion.NEGATIVO);:
     | E:a tMult E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.MULTIPLICACION);:}
     | E:a tDiv E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.DIVISION);:}
     | E:a tPow E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.POTENCIA);:}
-    | E:a tIgual tIgual E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.IGUAL_QUE);:}
+    | E:a tDobleIgual E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.IGUAL_QUE);:}
     | E:a tMenorQ E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.MENOR_QUE);:}
     | E:a tMayorQ E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.MAYOR_QUE);:}
     | E:a tMayorQ tIgual E:b {:RESULT=new Operacion(a,b,Operacion.Tipo_operacion.MAYOR_IGUAL_QUE);:}
@@ -339,6 +370,6 @@ E   ::=  tResta E:a{:RESULT=new Operacion(a,Operacion.Tipo_operacion.NEGATIVO);:
     | tDoble:a {:RESULT=new Literal(Simbolo.EnumTipoDato.DOBLE, a);:}
     | tTrue:a {:RESULT=new Literal(Simbolo.EnumTipoDato.BOOLEANO, "true");:}
     | tFalse:a {:RESULT=new Literal(Simbolo.EnumTipoDato.BOOLEANO, "false");:}
-    | tLlaveA LISTAE:ls tLlaveC  {:RESULT=new Array(Simbolo.EnumTipoDato.ARRAY, ls);:}
+    
     ;
     

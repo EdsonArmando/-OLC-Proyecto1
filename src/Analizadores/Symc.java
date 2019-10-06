@@ -12,23 +12,27 @@ public class Symc {
   public static final int tLlaveA = 9;
   public static final int tGuion = 3;
   public static final int tCadena = 12;
-  public static final int tIgual = 16;
-  public static final int tWidth = 17;
-  public static final int tHight = 20;
-  public static final int tColor = 19;
+  public static final int tIgual = 20;
+  public static final int tWidth = 21;
+  public static final int tHight = 24;
+  public static final int tColor = 23;
   public static final int tAlign = 5;
-  public static final int tFont = 18;
+  public static final int tFont = 22;
   public static final int tPuntoComa = 10;
   public static final int tSize = 6;
+  public static final int tParC = 17;
+  public static final int tParA = 16;
   public static final int EOF = 0;
+  public static final int tRgb = 15;
   public static final int tBorder = 13;
-  public static final int tCaracter = 15;
+  public static final int tCaracter = 19;
   public static final int error = 1;
   public static final int tEntero = 14;
   public static final int tBackground = 4;
   public static final int tId = 2;
   public static final int tDosPuntos = 7;
   public static final int tLlaveC = 11;
+  public static final int tComa = 18;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -45,6 +49,10 @@ public class Symc {
   "tCadena",
   "tBorder",
   "tEntero",
+  "tRgb",
+  "tParA",
+  "tParC",
+  "tComa",
   "tCaracter",
   "tIgual",
   "tWidth",

@@ -16,11 +16,18 @@ public class Atributo {
     String nombre;
     Expresion valor;
     String id;
+    int r,g,b;
     LinkedList<Atributo> subLista;
     LinkedList<Atributo> lista;
     public Atributo(String nombre, Expresion valor){
         this.nombre = nombre;
         this.valor = valor;
+    }
+    public Atributo(String nombre, int r,int g, int b){
+        this.nombre = nombre;
+        this.r=r;
+        this.g=g;
+        this.b=b;
     }
      public Atributo(String nombre,LinkedList<Atributo> lista){
         this.nombre = nombre;

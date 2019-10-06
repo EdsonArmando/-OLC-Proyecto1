@@ -71,7 +71,7 @@ action code
 :}  
 
 terminal String tId,tGuion,tBackground,tAlign,tSize,tDosPuntos,tPunto,tLlaveA,tPuntoComa,tLlaveC,tCadena,tBorder;
-terminal String tEntero,tCaracter,tIgual,tWidth,tFont,tColor,tHight;
+terminal String tEntero,tRgb,tParA,tParC,tComa,tCaracter,tIgual,tWidth,tFont,tColor,tHight;
    
 non terminal Expresion E;
 non terminal String COLOR;
@@ -138,6 +138,9 @@ ATRIBUTO ::=tBorder tGuion  E:a tPuntoComa{:RESULT = new Atributo("border",a);:}
         | tAlign tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("Align",a);:}
         | tFont tGuion tColor tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("FontColor",a);:}
         | tFont tGuion tSize tDosPuntos E:a tPuntoComa{:RESULT = new Atributo("FontSize",a);:}
+        | tBackground tDosPuntos tRgb tParA tEntero:r tComa tEntero:g tComa tEntero:b tParC tPuntoComa{:
+            RESULT = new Atributo("rgb",Integer.parseInt(r),Integer.parseInt(g),Integer.parseInt(b))
+        ;:}
         ;
 E ::=  tEntero:a  {:RESULT=new Literal(Simbolo.EnumTipoDato.ENTERO, a);:}
     | tId:a {:RESULT=new Id(a, aright, aleft);:}

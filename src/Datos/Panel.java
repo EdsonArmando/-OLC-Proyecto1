@@ -31,7 +31,7 @@ public class Panel extends ComponenteJava{
     ComponenteJava java;
     Border borderPanel;
     String color="cyan";
-    int height, width, x, y;
+    int height, width, x, y,r=0,g=0,b=0;
     Atributo atrib;
     String colorBorder=null;
     int borderWhit=0;
@@ -61,6 +61,10 @@ public class Panel extends ComponenteJava{
                 }else if(atrib.nombre.equals("x")){
                     result = atrib.valor;
                     this.x = Integer.parseInt(result.valor.toString());
+                }else if(atrib.nombre.equals("rgb")){
+                    this.r=atrib.r;
+                    this.g=atrib.g;
+                    this.b=atrib.b;
                 }else if(atrib.nombre.equals("y")){
                     result = atrib.valor;
                     this.y = Integer.parseInt(result.valor.toString());
@@ -82,6 +86,10 @@ public class Panel extends ComponenteJava{
                             }else if(atr.nombre.equals("BorderColor")){
                                 id = (Id) atr.valor;
                                 this.colorBorder = id.getId();
+                            }else if(atr.nombre.equals("rgb")){
+                                this.r=atr.r;
+                                this.g=atr.g;
+                                this.b=atr.b;
                             }
                            }
                          }
@@ -101,8 +109,11 @@ public class Panel extends ComponenteJava{
        
         nuevo.setLayout(null);
         nuevo.setBounds(this.x, this.y, this.width, this.height);
-        
-        nuevo.setBackground(l.traducirColor(this.color));
+        if(this.color!="cyan"){
+            nuevo.setBackground(l.traducirColor(this.color));
+        }else{
+            nuevo.setBackground(l.traducirColor(this.r,this.g,this.b));
+        }
         nuevo.repaint();
         /** Agregar al entorno Padre **/
         

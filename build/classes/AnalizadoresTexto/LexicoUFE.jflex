@@ -93,8 +93,13 @@ espacio = \t|\f|" "|\r|\n
     "-"             {return addSymbol(new Symbol(Symu.tResta,yycolumn,yyline,yytext()));}
     "*"             {return addSymbol(new Symbol(Symu.tMult,yycolumn,yyline,yytext()));}
     "/"             {return addSymbol(new Symbol(Symu.tDiv,yycolumn,yyline,yytext()));}
+    "/>"            {return addSymbol(new Symbol(Symu.tDivMayorQ,yycolumn,yyline,yytext()));}
+   
     "pow"           {return addSymbol(new Symbol(Symu.tPow,yycolumn,yyline,yytext()));}
-    "si"            {return addSymbol(new Symbol(Symu.tSi,yycolumn,yyline,yytext()));}
+    "Si"            {return addSymbol(new Symbol(Symu.tSi,yycolumn,yyline,yytext()));}
+    "SiNo"          {return addSymbol(new Symbol(Symu.tSiNo,yycolumn,yyline,yytext()));}
+    "mientras"      {return addSymbol(new Symbol(Symu.tMientras,yycolumn,yyline,yytext()));}
+    "repetir"       {return addSymbol(new Symbol(Symu.tRepetir,yycolumn,yyline,yytext()));}
     "true"          {return addSymbol(new Symbol(Symu.tTrue,yycolumn,yyline,yytext()));}
     "false"         {return addSymbol(new Symbol(Symu.tFalse,yycolumn,yyline,yytext()));}
 
@@ -113,13 +118,18 @@ espacio = \t|\f|" "|\r|\n
     "/*"            { ESTADOACTUAL = UFEX; yybegin(COMENTMULTI);} 
     "//"            { ESTADOACTUAL = UFEX; yybegin(COMENTSIMPLE);}
     "\""            { ESTADOACTUAL = UFEX; yybegin(STRING);}
+    "+"             {return addSymbol(new Symbol(Symu.tSuma,yycolumn,yyline,yytext()));}
     "("             {return addSymbol(new Symbol(Symu.tParA,yycolumn,yyline,yytext()));}
     ")"             {return addSymbol(new Symbol(Symu.tParC,yycolumn,yyline,yytext()));}
     ">"             {return addSymbol(new Symbol(Symu.tMayorQ,yycolumn,yyline,yytext()));}
     "<"             {return addSymbol(new Symbol(Symu.tMenorQ,yycolumn,yyline,yytext()));}
     "}"             {return addSymbol(new Symbol(Symu.tLlaveC,yycolumn,yyline,yytext()));}
     "{"             {return addSymbol(new Symbol(Symu.tLlaveA,yycolumn,yyline,yytext()));}
+    "}"             {return addSymbol(new Symbol(Symu.tLlaveC2,yycolumn,yyline,yytext()));}
+    "{"             {return addSymbol(new Symbol(Symu.tLlaveA2,yycolumn,yyline,yytext()));}
     "["             {return addSymbol(new Symbol(Symu.tCorcheA,yycolumn,yyline,yytext()));}
+    "< /"            {return addSymbol(new Symbol(Symu.tMenorDiv,yycolumn,yyline,yytext()));}
+    "(</"           {return addSymbol(new Symbol(Symu.tReturnMenorQ,yycolumn,yyline,yytext()));}
     "]"             {return addSymbol(new Symbol(Symu.tCorcheC,yycolumn,yyline,yytext()));}
     "panel"         {return addSymbol(new Symbol(Symu.tPanel,yycolumn,yyline,yytext()));}
     "max"           {return addSymbol(new Symbol(Symu.tMax,yycolumn,yyline,yytext()));}

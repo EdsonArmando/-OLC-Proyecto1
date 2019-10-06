@@ -8,6 +8,8 @@ package Sentecia;
 import Entorno.Entorno;
 import Entorno.Simbolo;
 import Expresion.Expresion;
+import Expresion.Literal;
+import Expresion.Operacion;
 
 /**
  *
@@ -22,12 +24,9 @@ public class Reasignacion extends Sentencia{
     }
     @Override
     public void ejecutar(Entorno ent) {
-        Simbolo sim = null;
-        sim = ent.obtener(nombre);
-        Expresion resutado = this.valor;
-       
-            ent.modificarVariable(this.nombre, new Simbolo(resutado.tipo, resutado.valor));
-        
+        Literal val=(Literal) valor.obtenerValor(ent);
+        Simbolo nuevo = new Simbolo(val.getTipo(),val.valor);
+            ent.modificarVariable(this.nombre,nuevo);
     }
 
     @Override

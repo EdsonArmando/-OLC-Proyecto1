@@ -11,6 +11,7 @@ import Expresion.Array;
 import Expresion.ArrayPosicion;
 import Expresion.Expresion;
 import Expresion.Id;
+import Expresion.Operacion;
 import IntruccionHTML.CSS;
 import IntruccionHTML.LibreriaColor;
 //import static Views.Inicio.ent;
@@ -33,7 +34,7 @@ public class Label extends ComponenteJava{
     int height, width, x, y,tamaño=12;
     Id id;
     boolean subStilo=false,sub=false;
-    String letra="Times New Romans",align="",color="";
+    String letra="Agency FB",align="",color="black";
     Simbolo.EnumTipoDato type;
     Expresion  mensaje;
     Atributo atrib;
@@ -144,10 +145,11 @@ public class Label extends ComponenteJava{
           System.out.println("Agregando LabelTexto al panel");
          if(subStilo!=false){
               LibreriaColor l = new LibreriaColor();
-                System.out.print("\n\n--------"+this.color+"\n\n");
+                
                 nuevo.setForeground(l.traducirColor(this.color));
-                Font font = new Font(this.letra, Font.BOLD, this.tamaño);
+                Font font = new Font(this.letra,Font.PLAIN, this.tamaño);
                 nuevo.setFont(font);
+                System.out.print("\n\n--------"+this.letra+"\n\n");
             if(this.align.equals("left")){
                 obj.setLayout(new FlowLayout(FlowLayout.LEFT));
                 nuevo.setHorizontalAlignment(JLabel.LEFT);
@@ -163,15 +165,38 @@ public class Label extends ComponenteJava{
         nuevo.setLayout(null);
         
         nuevo.setBounds(this.x, this.y, this.width, this.height);
-        if(this.mensaje.getTipo()==Simbolo.EnumTipoDato.ARRAY){
-              array=(ArrayPosicion) this.mensaje;
-               sim = ent.obtener(array.getId());
-               arrayVE = (Array)sim.getValor();
-            item= arrayVE.returnVal(Integer.parseInt(array.getPo()),ent);
-            nuevo.setText(item);
+        if(this.mensaje instanceof Operacion){
+            nuevo.setText(this.mensaje.obtenerValor(ent).valor.toString());
         }else{
-            nuevo.setText(this.mensaje.valor.toString());
+              try{
+             nuevo.setText(this.mensaje.valor.toString());
+             System.out.println("\n\n------"+this.mensaje.valor.toString()+"\n\n------");
+        }catch(Exception e){
+        
         }
+        try{
+            if(this.mensaje.getTipo()==Simbolo.EnumTipoDato.ARRAY){
+                array=(ArrayPosicion) this.mensaje;
+                sim = ent.obtener(array.getId());
+                arrayVE = (Array)sim.getValor();
+                Expresion items= array.getPosicion();
+               item=arrayVE.returnVal(Integer.parseInt(items.valor.toString()),ent);
+               nuevo.setText(item);
+           }
+        }catch(Exception e){
+             try{
+                nuevo.setText(this.mensaje.valor.toString());
+                System.out.println("\n\n------"+this.mensaje.valor.toString()+"\n\n------");
+            }catch(Exception es){
+                try{
+                nuevo.setText(this.mensaje.obtenerValor(ent).valor.toString());
+                }catch(Exception esa){
+                
+                }
+                
+            }
+        }
+        }        
         nuevo.repaint();
         /** Agregar al entorno Padre **/
         

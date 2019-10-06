@@ -129,6 +129,12 @@ public class Spinner extends ComponenteJava{
                                         result = subAt.valor;
                                         this.tamaño =Integer.parseInt(result.valor.toString());
                                         //this.color = id.getId();
+                                        }else if(subAt.nombre.equals("width")){
+                               
+                                            this.width=Integer.parseInt(result.valor.toString());
+                                        }else if(subAt.nombre.equals("height")){
+
+                                            this.height = Integer.parseInt(result.valor.toString());
                                         }
                                     }
                              

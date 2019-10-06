@@ -31,13 +31,19 @@ public class LibreriaColor {
             case "magenta":
                 return Color.MAGENTA;
             case "green":
-                return Color.GREEN;
+                return Color.green;
             case "brown":
                 return Color.BLACK;
             case "black":
                 return Color.BLACK;
+            case "light":
+                return Color.BLUE.brighter();
             default:
-               return Color.darkGray;
+                return Color.gray;
+               
         }
+    }
+    public Color traducirColor(int r,int g, int b){
+        return new Color(r,g,b);
     }
 }

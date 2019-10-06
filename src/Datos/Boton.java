@@ -181,13 +181,22 @@ public class Boton extends ComponenteJava{
             }
 
              }
-        array=(ArrayPosicion) this.exp;
-        sim = ent.obtener(array.getId());
-        arrayVE = (Array)sim.getValor();
-        System.out.println("Agregando Boton al panel");
-        /** Crear nuevo Panel***/
+         try{
+            array=(ArrayPosicion) this.exp;
+                sim = ent.obtener(array.getId());
+                arrayVE = (Array)sim.getValor();
+                Expresion items= array.getPosicion();
+               String item=arrayVE.returnVal(Integer.parseInt(items.valor.toString()),ent);
+               nuevo.setText(item);
+         }catch(Exception e){
+              try{
+                nuevo.setText(this.exp.valor.toString());
+            }catch(Exception es){
+                nuevo.setText(this.exp.obtenerValor(ent).valor.toString());
+            }
+         }
         
-        nuevo.setText(arrayVE.returnVal(Integer.parseInt(array.getPo()),ent));
+        
         nuevo.setLayout(null);
         nuevo.setBounds(this.x, this.y, this.width, this.height);
        

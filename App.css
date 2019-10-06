@@ -1,83 +1,65 @@
-panel
+panel /*Estilo general para los paneles.*/
 {
-     width: 380;
-     hight: 500;
      border: true;
-     border-color: green;
-     border-width: 5;
+     border-color: yellow;
+     border-width: 3;
+     width: 1000;
+     height: 100;
 }
-.Notas 
+.Notas /*Sub estilo 2*/
 {
+     background: rgb(153, 255, 255);
      border-width: 1;
      width: 500;
-     hight: 380;     
+     height: 380;     
 }
-.Descripcion
+.Descripcion /*Sub estilo 3*/
 {
+     background: #43b421;
      border-width: 1;
      width: 500;
-     hight: 380;     
+     height: 380;     
 }
-titulo 
+
+titulo /*Estilos para los títulos*/
 {
-     font: "Times New Romans";
+     font: 'Times New Romans';
      align: left;
-     font-size:13;   
-     width: 1300;
-     hight: 70;  
-     border: true;
-     border-color: red;
-     border-width: 5;
+     font-color: #000000;
+     font-size:24;     
 }
 .subtitulo 
 {
-     font: "Times New Romans";
-     align: center;
-     font-size:30;          
+     font: 'Times New Romans';
+     align: left;
+     font-color: #000000;
+     font-size: 18;          
 }
 .texto
 {
-     font: "Comics Sans MS";
+     font: "Comics Sans MS';
      align: left;
+     font-color: #000000;
      font-size:18;          
 }
-titulo2 
-{
-     font: "Times New Romans";
-     width: 1300;
-     hight: 70;  
-     border-color: orange;
-     border-width: 5;
 
-}
-.subtitulo2 
-{
-     font: "Times New Romans";
-     align: center;
-     font-size:30; 
-     font-color: gray;
-
-}
-.texto2
-{
-     font: "Comics Sans MS";
-     align: left;
-     font-size:18;          
-}
 curso
 {
      font: "Consolas";
      align: left;     
      font-size: 12;       
 }
-.aprobado
+.Aprobado
 {
-     font-color: black; 
-     font-size: 10;   
+     font-color: black; /* Color rojo*/
 }
-.boton
+.NoAprobado
 {
-    font-color: red; 
-     font-size: 10; 
-     align: right;
+     font-color: rgb(204, 0, 0); /* Color rojo*/
+}
+
+panelPrincipal
+{
+     Border-width = 3;
+     Background = black;
 }

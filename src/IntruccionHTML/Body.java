@@ -13,12 +13,16 @@ import java.util.LinkedList;
  */
 public class Body extends InstruccionHtml{
     LinkedList<EtiquetaHtml> lista;
+    Div div;
     public Body(LinkedList<EtiquetaHtml> lista){
         this.lista = lista;
     }
     @Override
     public void Ejecutar() {
         for(EtiquetaHtml eti: this.lista){
+            if(eti instanceof Div){
+                div = (Div)eti;
+            }
             eti.Ejecutar();
         }
     }
